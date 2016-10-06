@@ -1,0 +1,20 @@
+[run]
+branch = True
+source = bootcamp
+parallel = true
+omit = tests/*, bootcamp/bootcamp.py
+
+[report]
+show_missing = true
+precision = 2
+exclude_lines =
+    # Don't complain about debug-only code
+    def __repr__
+
+    # Don't complain about placeholders
+    raise NotImplementedError
+
+    # Support pragma: no cover
+    pragma: no cover
+
+    pass
