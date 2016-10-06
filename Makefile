@@ -1,5 +1,8 @@
 project := bootcamp
 flake8 := flake8
+TARGET ?= tests
+pytest_args := -s --tb short --cov-config .coveragerc --cov $(project) $(TARGET)
+pytest := $(clay_config) py.test $(pytest_args)
 
 html_report := --cov-report html
 test_args := --cov-report term-missing --cov-report xml --junitxml junit.xml
