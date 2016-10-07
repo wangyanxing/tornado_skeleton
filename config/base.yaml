@@ -1,2 +1,21 @@
 server:
   port: 18888
+
+
+sqlalchemy:
+  master:
+    url: postgresql+psycopg2://bootcamp@:5432/bootcamp
+  slave:
+    url: postgresql+psycopg2://bootcamp@:5432/bootcamp
+
+
+database:
+  module: psycopg2
+  read:
+    -
+      dbname: bootcamp
+      user: bootcamp
+  write:
+    -
+      dbname: bootcamp
+      user: bootcamp

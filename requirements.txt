@@ -1,3 +1,4 @@
 pyyaml
 tornado==4.4
 clay-config
+SQLAlchemy==1.0.9

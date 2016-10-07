@@ -21,6 +21,14 @@ bootstrap:
 	pip install -r requirements.txt
 	python setup.py develop
 
+.PHONY: bootstrap-db
+bootstrap-db:
+	python ./scripts/bootstrap_db.py bootstrap
+
+.PHONY: drop-db
+drop-db:
+	python ./scripts/bootstrap_db.py drop
+
 .PHONY: serve
 serve:
 	bootcamp-web
