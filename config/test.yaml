@@ -1,0 +1,4 @@
+deep_extend: true
+
+extends:
+  - base.yaml

@@ -1,1 +1,3 @@
+pyyaml
 tornado==4.4
+clay-config
