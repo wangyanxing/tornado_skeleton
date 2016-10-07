@@ -7,8 +7,7 @@ pytest := $(clay_config) py.test $(pytest_args)
 html_report := --cov-report html
 test_args := --cov-report term-missing --cov-report xml --junitxml junit.xml
 
-# All of these commands can be run with an explicit `CLAY_CONFIG=` environment
-# variable to override environment settings.
+
 CLAY_CONFIG ?= config/test.yaml
 export CLAY_CONFIG
 
@@ -34,6 +33,6 @@ clean:
 test: clean
 	$(pytest) $(test_args)
 
-.PHONY: shell
-shell:
-	ipython
+.PHONY: lint
+lint:
+	$(flake8) $(project) tests

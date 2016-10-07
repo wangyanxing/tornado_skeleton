@@ -1,12 +1,7 @@
-doubles
 pytest
 pytest-cov
 pytest-ipdb==0.1-prerelease
 pytest-timeout
 pytest-tornado
-
-ipdb
-
 flake8==2.1.0
-# coverage needs to be pinned or else phab can't do the blue lines
 coverage==4.0.2
