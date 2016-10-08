@@ -9,7 +9,8 @@ from sqlalchemy import (
 from sqlalchemy.dialects.postgresql import UUID
 
 from bootcamp.lib.validation import is_valid_uuid_string
-from bootcamp.models import Model, logger
+from bootcamp.models import logger
+from bootcamp.models.base import Model
 
 
 class Title(Model):
