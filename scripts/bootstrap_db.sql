@@ -24,6 +24,7 @@ CREATE SEQUENCE title_id_seq
     CACHE 1;
 
 ALTER SEQUENCE title_id_seq OWNED BY titles.id;
+ALTER TABLE ONLY titles ALTER COLUMN id SET DEFAULT nextval('title_id_seq'::regclass);
 
 ALTER TABLE ONLY titles ADD CONSTRAINT titles_uuid_pkey PRIMARY KEY (uuid);
 

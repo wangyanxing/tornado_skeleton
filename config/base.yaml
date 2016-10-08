@@ -15,7 +15,9 @@ database:
     -
       dbname: bootcamp
       user: bootcamp
+      port: 5432
   write:
     -
       dbname: bootcamp
       user: bootcamp
+      port: 5432

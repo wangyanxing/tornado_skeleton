@@ -12,7 +12,7 @@ class TitleService(object):
 
     def create_title_with_entity(self, title_entity):
         if not title_entity.uuid:
-            title_entity.uuid = uuid.uuid4()
+            title_entity.uuid = str(uuid.uuid4())
         title_entity.validate()
 
         title = self.store.create_from_entity(title_entity)

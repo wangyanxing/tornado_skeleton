@@ -51,18 +51,12 @@ class Base(object):
     def all(cls):
         """Return all instances of this model."""
         q = cls.query()
-        if hasattr(cls, 'deleted_at'):
-            q = q.filter_by(deleted_at=None)
-
         return q
 
     @classmethod
-    def get(cls, id_, allow_deleted=False):
+    def get(cls, id_):
         """Get a model by id."""
         q = cls.query().filter_by(id=id_)
-        if hasattr(cls, 'deleted_at') and not allow_deleted:
-            q = q.filter_by(deleted_at=None)
-
         return q.first()
 
     def persist(self):

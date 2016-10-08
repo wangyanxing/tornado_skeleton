@@ -26,9 +26,6 @@ class TitleStore(object):
             rate=title.rate,
         )
         new_title.validate()
-        self.commit()
-        return Title.to_entity(new_title)
-
-    @staticmethod
-    def commit():
+        new_title.persist()
         get_db_session().commit()
+        return new_title
