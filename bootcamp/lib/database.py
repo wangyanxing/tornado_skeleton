@@ -11,7 +11,7 @@ sessions = {}
 DB_URL = 'postgresql+psycopg2://{}@:{}/{}'
 
 
-def get_db_engine(engine_type='write'):
+def get_db_engine(engine_type='write'):  # pragma: no cover
     db_config = config.get('database.{}'.format(engine_type))[0]
     db_url = DB_URL.format(
         db_config.get('user'),
@@ -30,7 +30,7 @@ def get_db_engine(engine_type='write'):
     return engine
 
 
-def get_db_session(session_type='write', engine=None):
+def get_db_session(session_type='write', engine=None):  # pragma: no cover
     if session_type not in sessions:
         bind = engine or get_db_engine(session_type)
         sessions[session_type] = sqlalchemy.orm.scoped_session(
