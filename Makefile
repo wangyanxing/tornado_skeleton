@@ -43,7 +43,7 @@ test: clean
 
 .PHONY: lint
 lint:
-	$(flake8) $(project) tests
+	$(flake8) $(project) tests --config .flake8
 
 .PHONY: shell
 shell:

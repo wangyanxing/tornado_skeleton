@@ -1,13 +1,10 @@
 import uuid
 
 from sqlalchemy import (
-    Boolean,
     Column,
-    DateTime,
     Integer,
     String,
     Text,
-    Unicode,
 )
 from sqlalchemy.dialects.postgresql import UUID
 
