@@ -44,3 +44,7 @@ test: clean
 .PHONY: lint
 lint:
 	$(flake8) $(project) tests
+
+.PHONY: shell
+shell:
+	ipython

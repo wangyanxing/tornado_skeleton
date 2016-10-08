@@ -12,7 +12,7 @@ CREATE TABLE titles (
     video_path character varying(128) NOT NULL,
     file_names character varying(128) NOT NULL,
     description text,
-    video_size numeric,
+    video_size integer,
     rate integer
 );
 

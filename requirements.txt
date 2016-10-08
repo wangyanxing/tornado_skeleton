@@ -2,3 +2,6 @@ pyyaml
 tornado==4.4
 clay-config
 SQLAlchemy==1.0.9
+pytz
+voluptuous==0.9.3
+psycopg2==2.6.2
