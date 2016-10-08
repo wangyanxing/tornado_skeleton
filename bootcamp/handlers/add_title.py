@@ -20,5 +20,5 @@ class AddTitleHandler(BaseHandler):
             rate=8,
         )
         service = TitleService()
-        title = service.create_title_with_entity(title)
+        title = yield service.create_title_with_entity(title)
         self.write('Added {}'.format(title.uuid))

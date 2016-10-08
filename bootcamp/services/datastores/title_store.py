@@ -1,17 +1,23 @@
+from tornado.gen import coroutine
+
 from bootcamp.lib.database import get_db_session
 from bootcamp.models.title import Title
 
 
 class TitleStore(object):
+
+    @coroutine
     def get_titles(self):
         query = Title.query()
         models = [_ for _ in query]
         return models
 
+    @coroutine
     def get_title(self, uuid):
         query = Title.query().filter(Title.uuid == uuid)
         return query
 
+    @coroutine
     def create_from_entity(self, title):
         new_title = Title(
             uuid=title.uuid,
