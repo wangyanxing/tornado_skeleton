@@ -33,10 +33,9 @@ class Title(Model):
         return q.first()
 
     def to_dict(self):
-        """Return a dictionary representation of the model."""
         return {
             'uuid': self.uuid,
-            'id': self.uuid,
+            'id': self.id,
             'titleId': self.title_id,
             'title': self.title,
             'videoPath': self.video_path,
