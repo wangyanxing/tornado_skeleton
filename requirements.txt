@@ -1,6 +1,6 @@
 pyyaml
 tornado==4.4
-clay-config
+clay-flask
 SQLAlchemy==1.0.9
 pytz
 voluptuous==0.9.3

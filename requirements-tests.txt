@@ -1,7 +1,6 @@
 doubles
 pytest
 pytest-cov
-pytest-ipdb==0.1-prerelease
 pytest-timeout
 pytest-tornado
 flake8==2.1.0

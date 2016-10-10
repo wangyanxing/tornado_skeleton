@@ -1,4 +1,4 @@
-from clay_config import config
+from clay import config
 import tornado.ioloop
 import tornado.web
 import logging

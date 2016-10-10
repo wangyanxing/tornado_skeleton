@@ -1,7 +1,15 @@
+## Prerequisites
+  	- Install pip:
+      https://pip.pypa.io/en/stable/installing
+
+    - Install postgres  
+  	  brew install postgres
+
+  	- Others
+  	  pip install ipython
+
 ## Install
 
-  brew install postgres
-  
   virtualenv env
   source env/bin/activate
   

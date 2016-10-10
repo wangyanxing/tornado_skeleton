@@ -2,3 +2,19 @@ deep_extend: true
 
 extends:
   - base.yaml
+
+server:
+  port: 18888
+
+database:
+  module: psycopg2
+  read:
+    -
+      dbname: bootcamp
+      user: bootcamp
+      port: 5432
+  write:
+    -
+      dbname: bootcamp
+      user: bootcamp
+      port: 5432

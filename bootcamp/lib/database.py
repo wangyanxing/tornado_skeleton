@@ -1,10 +1,11 @@
 from __future__ import absolute_import
 
+import os
 import socket
 
 import sqlalchemy.orm
 import sqlalchemy
-from clay_config import config, os
+from clay import config
 
 sessions = {}
 

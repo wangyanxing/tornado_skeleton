@@ -3,7 +3,7 @@ from __future__ import absolute_import
 
 import os
 import sys
-from clay_config import config
+from clay import config
 
 
 def drop_database(env='development', database_type='write'):
