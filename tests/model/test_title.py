@@ -8,7 +8,7 @@ class TestTitle(AsyncTestCase):
     def test_get(self):
         uuid = '1cf41b3d-f7ad-4238-bf08-8794cf7ae0f4'
         obj = Title.get(uuid)
-        assert isinstance(obj, Title) == False
+        assert isinstance(obj, Title) is False
 
     @gen_test
     def test_to_dict(self):
