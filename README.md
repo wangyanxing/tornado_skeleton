@@ -1,22 +1,29 @@
 ## Prerequisites
-  	* Install pip:
-    https://pip.pypa.io/en/stable/installing
 
-    * Install postgres  
-  	`brew install postgres`
+* Install pip:
+https://pip.pypa.io/en/stable/installing
 
-  	* Others
-  	`pip install ipython`
+* Install postgres  
+
+`brew install postgres`
+
+* Others
+
+`pip install ipython`
 
 ## Install
-  `virtualenv env`
-  `source env/bin/activate`
-  `make bootstrap`
-  `make bootstrap-db`
-  
+
+```
+virtualenv env
+source env/bin/activate
+make bootstrap
+make bootstrap-db
+```
 
 ## Run
 
-  `source env/bin/activate`
-  `make serve`
-  `localhost:1888`
+```
+source env/bin/activate
+make serve
+http://localhost:18888/
+```
