@@ -1,5 +1,3 @@
-import uuid
-
 from tornado.gen import coroutine, Return
 
 from bootcamp.services import logger

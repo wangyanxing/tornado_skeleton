@@ -8,7 +8,7 @@ from bootcamp.lib.camel_case import snake_to_camel
 from bootcamp.lib.database import get_db_session
 
 
-class Base(object):
+class Base(object):  # pragma: no cover
     created_at = Column(DateTime, default=datetime.datetime.utcnow,
                         nullable=False)
     updated_at = Column(DateTime, default=datetime.datetime.utcnow,
@@ -21,14 +21,6 @@ class Base(object):
 
     def to_dict(self):
         raise NotImplementedError
-
-    def to_dict_admin(self):
-        return self.to_dict()
-
-    @classmethod
-    def all(cls):
-        q = cls.query()
-        return q
 
     @classmethod
     def get(cls, id_):
@@ -75,8 +67,9 @@ class Base(object):
 Model = declarative.declarative_base(cls=Base)
 
 
-def validate(mapper, connection, instance):
+def validate(mapper, connection, instance):  # pragma: no cover
     instance.validate()
+
 
 event.listen(Model, 'before_insert', validate, propagate=True)
 event.listen(Model, 'before_update', validate, propagate=True)

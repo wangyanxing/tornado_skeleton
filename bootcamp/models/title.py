@@ -16,12 +16,12 @@ from bootcamp.models.base import Model
 class Title(Model):
     __tablename__ = 'titles'
 
-    id = Column(Integer, primary_key=True)
-    uuid = Column(UUID, default=lambda: str(uuid.uuid4()))
-    title_id = Column(String(10))
-    title = Column(Text)
-    video_path = Column(String(128))
-    file_names = Column(String(128))
+    id = Column(Integer, primary_key=True, nullable=False)
+    uuid = Column(UUID, default=lambda: str(uuid.uuid4()), nullable=False)
+    title_id = Column(String(10), nullable=False)
+    title = Column(Text, nullable=False)
+    video_path = Column(String(128), nullable=False)
+    file_names = Column(String(128), nullable=False)
     description = Column(Text)
     video_size = Column(Integer)  # In bytes
     rate = Column(Integer)
