@@ -16,7 +16,7 @@ class Title(Model):
     __tablename__ = 'titles'
 
     id = Column(Integer, primary_key=True, nullable=False)
-    uuid = Column(UUID, default=lambda: str(uuid.uuid4()), nullable=False)
+    uuid = Column(UUID, default=lambda: str(uuid.uuid4()), nullable=False)  # pragma: no cover
     title_id = Column(String(10), nullable=False)
     title = Column(Text, nullable=False)
     video_path = Column(String(128), nullable=False)

@@ -8,10 +8,11 @@ omit = tests/*, bootcamp/bootcamp.py
 show_missing = true
 precision = 2
 exclude_lines =
-    def __repr__
-
-    raise NotImplementedError
-
     pragma: no cover
-
+    def __repr__
+    raise AssertionError
+    raise NotImplementedError
     pass
+    if self.debug:
+    if 0:
+    if __name__ == .__main__.:
