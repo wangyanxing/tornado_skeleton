@@ -1,6 +1,5 @@
-from tornado.testing import gen_test, AsyncTestCase
-
 from bootcamp.lib.string import make_unicode
+from tornado.testing import AsyncTestCase, gen_test
 
 
 class TestString(AsyncTestCase):

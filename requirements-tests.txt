@@ -3,5 +3,6 @@ pytest
 pytest-cov
 pytest-timeout
 pytest-tornado
-flake8==2.1.0
+flake8-import-order==0.7
+flake8==2.5.4
 coverage==4.0.2

@@ -1,9 +1,8 @@
 import httplib
 
-import pytest
-from doubles import allow_constructor, expect, patch_class
-
 from bootcamp.services.title_service import TitleService
+from doubles import allow_constructor, expect, patch_class
+import pytest
 
 
 @pytest.fixture

@@ -1,5 +1,8 @@
 import uuid
 
+from bootcamp.lib.validation import is_valid_uuid_string
+from bootcamp.models import logger
+from bootcamp.models.base import Model
 from sqlalchemy import (
     Column,
     Integer,
@@ -8,20 +11,16 @@ from sqlalchemy import (
 )
 from sqlalchemy.dialects.postgresql import UUID
 
-from bootcamp.lib.validation import is_valid_uuid_string
-from bootcamp.models import logger
-from bootcamp.models.base import Model
-
 
 class Title(Model):
     __tablename__ = 'titles'
 
-    id = Column(Integer, primary_key=True)
-    uuid = Column(UUID, default=lambda: str(uuid.uuid4()))
-    title_id = Column(String(10))
-    title = Column(Text)
-    video_path = Column(String(128))
-    file_names = Column(String(128))
+    id = Column(Integer, primary_key=True, nullable=False)
+    uuid = Column(UUID, default=lambda: str(uuid.uuid4()), nullable=False)  # pragma: no cover
+    title_id = Column(String(10), nullable=False)
+    title = Column(Text, nullable=False)
+    video_path = Column(String(128), nullable=False)
+    file_names = Column(String(128), nullable=False)
     description = Column(Text)
     video_size = Column(Integer)  # In bytes
     rate = Column(Integer)

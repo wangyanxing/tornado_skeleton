@@ -1,14 +1,15 @@
 import uuid
-import mock
-from bootcamp.services.datastores.title_store import TitleStore
-from bootcamp.services.title_service import TitleService
-from tornado import gen
-from tornado.testing import gen_test, AsyncTestCase
 
 from bootcamp.models.title import Title
+from bootcamp.services.datastores.title_store import TitleStore
+from bootcamp.services.title_service import TitleService
+import mock
+from tests.base_test import BaseTestCase
+from tornado import gen
+from tornado.testing import gen_test
 
 
-class TestTitleService(AsyncTestCase):
+class TestTitleService(BaseTestCase):
     @mock.patch.object(TitleStore, 'create_from_entity')
     @mock.patch.object(TitleService, 'handle_title_added')
     @gen_test

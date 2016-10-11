@@ -1,6 +1,6 @@
-import pytest
-
 from bootcamp.bootcamp import make_app
+
+import pytest
 
 
 @pytest.fixture

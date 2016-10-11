@@ -23,11 +23,11 @@ bootstrap:
 
 .PHONY: bootstrap-db
 bootstrap-db:
-	python ./scripts/bootstrap_db.py bootstrap
+	CLAY_CONFIG=./config/base.yaml python ./scripts/bootstrap_db.py bootstrap
 
 .PHONY: drop-db
 drop-db:
-	python ./scripts/bootstrap_db.py drop
+	CLAY_CONFIG=./config/base.yaml python ./scripts/bootstrap_db.py drop
 
 .PHONY: serve
 serve:
@@ -38,7 +38,8 @@ clean:
 	@find $(project) "(" -name "*.pyc" -o -name "coverage.xml" -o -name "junit.xml" ")" -delete
 
 .PHONY: test
-test: clean
+test:
+	python ./scripts/bootstrap_db.py bootstrap
 	$(pytest) $(test_args)
 
 .PHONY: lint

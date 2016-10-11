@@ -1,17 +1,15 @@
-from clay import config
-import tornado.ioloop
-import tornado.web
 import logging
 
+from clay import config
+from tornado import ioloop, web
 from tornado.options import parse_command_line
-
 from web.routes import get_routes
 
 logger = logging.getLogger(__name__)
 
 
 def make_app():
-    return tornado.web.Application(get_routes())
+    return web.Application(get_routes())
 
 
 def serve_web():
@@ -20,4 +18,4 @@ def serve_web():
 
     app = make_app()
     app.listen(config.get('server.port'))
-    tornado.ioloop.IOLoop.current().start()
+    ioloop.IOLoop.current().start()

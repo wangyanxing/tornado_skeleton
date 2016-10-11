@@ -1,9 +1,8 @@
 from __future__ import absolute_import
 
-from tornado.gen import coroutine
-
+from bootcamp.handlers.base import BaseHandler
 from bootcamp.services.title_service import TitleService
-from .base import BaseHandler
+from tornado.gen import coroutine
 
 
 class TitlesHandler(BaseHandler):
