@@ -1,5 +1,8 @@
 import uuid
 
+from bootcamp.lib.validation import is_valid_uuid_string
+from bootcamp.models import logger
+from bootcamp.models.base import Model
 from sqlalchemy import (
     Column,
     Integer,
@@ -7,10 +10,6 @@ from sqlalchemy import (
     Text,
 )
 from sqlalchemy.dialects.postgresql import UUID
-
-from bootcamp.lib.validation import is_valid_uuid_string
-from bootcamp.models import logger
-from bootcamp.models.base import Model
 
 
 class Title(Model):

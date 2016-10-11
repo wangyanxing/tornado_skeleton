@@ -1,7 +1,7 @@
-from tornado.gen import coroutine, Return
-
 from bootcamp.services import logger
 from bootcamp.services.datastores.title_store import TitleStore
+
+from tornado.gen import coroutine, Return
 
 
 class TitleService(object):

@@ -1,7 +1,7 @@
-from tornado.gen import coroutine
-
 from bootcamp.lib.database import get_db_session
 from bootcamp.models.title import Title
+
+from tornado.gen import coroutine
 
 
 class TitleStore(object):

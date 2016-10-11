@@ -1,7 +1,6 @@
-from tornado.testing import gen_test, AsyncTestCase
+from bootcamp.lib.validation import is_valid_uuid, is_valid_uuid_string
+from tornado.testing import AsyncTestCase, gen_test
 from voluptuous import Invalid
-
-from bootcamp.lib.validation import is_valid_uuid_string, is_valid_uuid
 
 
 class TestValidation(AsyncTestCase):

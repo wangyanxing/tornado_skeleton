@@ -1,6 +1,5 @@
-from tornado.testing import gen_test, AsyncTestCase
-
 from bootcamp.lib.camel_case import camel_to_snake, snake_to_camel
+from tornado.testing import AsyncTestCase, gen_test
 
 
 class TestCamelCase(AsyncTestCase):

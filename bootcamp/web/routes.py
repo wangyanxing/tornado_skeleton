@@ -1,9 +1,9 @@
 from __future__ import absolute_import
 
 from ..handlers.add_title import AddTitleHandler
-from ..handlers.titles import TitlesHandler
 from ..handlers.health import HealthHandler
 from ..handlers.index import IndexHandler
+from ..handlers.titles import TitlesHandler
 
 
 def get_routes():

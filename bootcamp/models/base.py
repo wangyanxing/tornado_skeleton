@@ -1,11 +1,11 @@
 import datetime
-import pytz
-from sqlalchemy.ext import declarative
-from sqlalchemy import Column, DateTime, event
-from voluptuous import Required, Schema
 
 from bootcamp.lib.camel_case import snake_to_camel
 from bootcamp.lib.database import get_db_session
+import pytz
+from sqlalchemy import Column, DateTime, event
+from sqlalchemy.ext import declarative
+from voluptuous import Required, Schema
 
 
 class Base(object):  # pragma: no cover

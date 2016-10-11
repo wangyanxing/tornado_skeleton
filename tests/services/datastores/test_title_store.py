@@ -1,8 +1,8 @@
 import uuid
 
-import mock
 from bootcamp.models.title import Title
 from bootcamp.services.datastores.title_store import TitleStore
+import mock
 from tests.base_test import BaseTestCase
 from tornado.testing import gen_test
 

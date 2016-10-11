@@ -1,8 +1,9 @@
 from __future__ import absolute_import
-import httplib
-from tornado.gen import coroutine
 
-from .base import BaseHandler
+import httplib
+
+from bootcamp.handlers.base import BaseHandler
+from tornado.gen import coroutine
 
 
 class HealthHandler(BaseHandler):
