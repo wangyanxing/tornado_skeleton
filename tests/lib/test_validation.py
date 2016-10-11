@@ -9,9 +9,9 @@ class TestValidation(AsyncTestCase):
 
     @gen_test
     def test_is_valid_uuid(self):
-        assert is_valid_uuid(self.valid_uuid) == True
-        assert is_valid_uuid('not a valid uuid') == False
-        assert is_valid_uuid(None) == False
+        assert is_valid_uuid(self.valid_uuid) is True
+        assert is_valid_uuid('not a valid uuid') is False
+        assert is_valid_uuid(None) is False
 
     @gen_test
     def test_is_valid_uuid_string(self):
