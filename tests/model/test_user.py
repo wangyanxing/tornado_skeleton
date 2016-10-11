@@ -1,6 +1,6 @@
-from tornado.testing import gen_test, AsyncTestCase
-
 from bootcamp.models.user import User
+
+from tornado.testing import AsyncTestCase, gen_test
 
 
 class TestUser(AsyncTestCase):
@@ -8,7 +8,7 @@ class TestUser(AsyncTestCase):
     def test_get(self):
         uuid = '1cf41b3d-f7ad-4238-bf08-8794cf7ae0f4'
         obj = User.get(uuid)
-        assert isinstance(obj, User) == False
+        assert isinstance(obj, User) is False
 
     @gen_test
     def test_to_dict(self):

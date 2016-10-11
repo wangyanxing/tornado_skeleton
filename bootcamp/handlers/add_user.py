@@ -1,10 +1,12 @@
 from __future__ import absolute_import
 
-from tornado.gen import coroutine
-
 from bootcamp.models.user import User
 from bootcamp.services.user_service import UserService
+
+from tornado.gen import coroutine
+
 from .base import BaseHandler
+
 
 class AddUserHandler(BaseHandler):
     @coroutine

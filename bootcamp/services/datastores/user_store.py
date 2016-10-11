@@ -1,7 +1,7 @@
-from tornado.gen import coroutine
-
 from bootcamp.lib.database import get_db_session
 from bootcamp.models.user import User
+
+from tornado.gen import coroutine
 
 
 class UserStore(object):

@@ -1,9 +1,9 @@
 import uuid
 
-from tornado.gen import coroutine, Return
-
 from bootcamp.services import logger
 from bootcamp.services.datastores.user_store import UserStore
+
+from tornado.gen import coroutine, Return
 
 
 class UserService(object):

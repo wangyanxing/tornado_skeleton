@@ -1,8 +1,9 @@
 from __future__ import absolute_import
 
+from bootcamp.services.user_service import UserService
+
 from tornado.gen import coroutine
 
-from bootcamp.services.user_service import UserService
 from .base import BaseHandler
 
 

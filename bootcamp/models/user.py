@@ -1,16 +1,14 @@
 import uuid
 
+from bootcamp.lib.validation import is_valid_uuid_string
+from bootcamp.models import logger
+from bootcamp.models.base import Model
 from sqlalchemy import (
     Column,
     Integer,
     String,
-    Text,
 )
 from sqlalchemy.dialects.postgresql import UUID
-
-from bootcamp.lib.validation import is_valid_uuid_string
-from bootcamp.models import logger
-from bootcamp.models.base import Model
 
 
 class User(Model):
@@ -22,7 +20,6 @@ class User(Model):
     user_name = Column(String(20))
     password = Column(String(128))
     email = Column(String(320))
-
 
     @classmethod
     def get(cls, uuid):
