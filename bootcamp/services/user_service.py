@@ -40,3 +40,8 @@ class UserService(object):
     def get_users(self):
         users = yield self.store.get_users()
         raise Return(users)
+
+    @coroutine
+    def is_user_exist(self, user_name):
+        exist = yield self.store.is_user_exist(user_name)
+        raise Return(exist)

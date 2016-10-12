@@ -18,6 +18,10 @@ class UserStore(object):
         return query
 
     @coroutine
+    def is_user_exist(self, user_name):
+        return User.query().filter(User.user_name == user_name).count() != 0
+
+    @coroutine
     def create_from_entity(self, user):
         new_user = User(
             uuid=user.uuid,

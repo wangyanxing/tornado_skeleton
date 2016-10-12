@@ -17,5 +17,10 @@ class AddUserHandler(BaseHandler):
             email='fgdsb@fgdsb'
         )
         service = UserService()
-        user = yield service.create_user_with_entity(user)
-        self.write('Added {}'.format(user.uuid))
+        is_user_exist = yield service.is_user_exist(user.user_name)
+
+        if is_user_exist:
+            self.write('User name {} exist.'.format(user.user_name))
+        else:
+            user = yield service.create_user_with_entity(user)
+            self.write('Added {}'.format(user.uuid))
