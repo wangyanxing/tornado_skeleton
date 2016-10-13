@@ -1,3 +1,4 @@
+from bootcamp.lib.exceptions import EntityAlreadyExistsError
 from bootcamp.services import logger
 from bootcamp.services.datastores.user_store import UserStore
 
@@ -12,14 +13,22 @@ class UserService(object):
     def create_user_with_entity(self, user_entity):
         user_entity.validate()
 
-        user = yield self.store.create_from_entity(user_entity)
-        logger.info(
-            dict(
-                uuid=user.uuid,
-                user_name=user.user_name,
-                method='create_user_with_entity',
-            )
+        log_info = dict(
+            uuid=user_entity.uuid,
+            user_name=user_entity.user_name,
+            method='create_user_with_entity',
         )
+
+        # Check duplicates
+        user = yield self.get_user_by_name(user_entity.user_name)
+        if user:
+            log_info.update({'error': 'user_name already exists'})
+            logger.exception(log_info)
+            raise EntityAlreadyExistsError(log_info.get('error'))
+
+        user = yield self.store.create_from_entity(user_entity)
+        logger.info(log_info)
+
         yield self.handle_user_added(user)
         raise Return(user)
 
@@ -38,6 +47,12 @@ class UserService(object):
         raise Return(users)
 
     @coroutine
-    def is_user_exist(self, user_name):
-        exist = yield self.store.is_user_exist(user_name)
-        raise Return(exist)
+    def get_user_by_name(self, user_name):
+        user = yield self.store.get_user_by_name(user_name)
+
+        logger.info(dict(
+            user_name=user_name,
+            method='get_user_by_name',
+            result_uuid=None if not user else user.uuid,
+        ))
+        raise Return(user)
