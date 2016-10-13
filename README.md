@@ -27,3 +27,9 @@ source env/bin/activate
 make serve
 http://localhost:18888/
 ```
+
+## Test
+
+```
+make test
+```
