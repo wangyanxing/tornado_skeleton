@@ -19,6 +19,11 @@ class TestStarStore(BaseTestCase):
         self.assertIsNone(star)
 
     @gen_test
+    def test_get_star_by_name(self):
+        star = yield StarStore().get_star_by_name('not found')
+        self.assertIsNone(star)
+
+    @gen_test
     def test_create_from_entity(self):
         star_entity = Star(
             raw_name='test',

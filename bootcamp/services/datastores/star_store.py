@@ -17,6 +17,11 @@ class StarStore(object):
         return query.first()
 
     @coroutine
+    def get_star_by_name(self, raw_name):
+        query = Star.query().filter(Star.raw_name == raw_name)
+        return query.first()
+
+    @coroutine
     def create_from_entity(self, entity):
         new_star = Star(
             uuid=entity.uuid,

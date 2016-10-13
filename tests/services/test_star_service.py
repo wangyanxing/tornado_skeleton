@@ -1,5 +1,6 @@
 import uuid
 
+from bootcamp.lib.exceptions import ResourceNotFoundError
 from bootcamp.models.star import Star
 from bootcamp.services.datastores.star_store import StarStore
 from bootcamp.services.star_service import StarService
@@ -45,6 +46,41 @@ class TestStarService(BaseTestCase):
 
         mock_get.assert_called_once_with(fake_uuid)
         self.assertEquals(star, fake_star)
+
+    @mock.patch.object(StarStore, 'get_star')
+    @gen_test
+    def test_get_star_not_found(self, mock_get):
+        mock_get.return_value = gen.maybe_future(None)
+
+        fake_uuid = uuid.uuid4()
+
+        with self.assertRaises(ResourceNotFoundError):
+            yield StarService().get_star(fake_uuid)
+
+        mock_get.assert_called_once_with(fake_uuid)
+
+    @mock.patch.object(StarStore, 'get_star_by_name')
+    @gen_test
+    def test_get_star_by_name(self, mock_get):
+        fake_star = mock.Mock()
+        mock_get.return_value = gen.maybe_future(fake_star)
+
+        fake_name = 'abc'
+        star = yield StarService().get_star_by_name(fake_name)
+
+        mock_get.assert_called_once_with(fake_name)
+        self.assertEquals(star, fake_star)
+
+    @mock.patch.object(StarStore, 'get_star_by_name')
+    @gen_test
+    def test_get_star_by_name_not_found(self, mock_get):
+        mock_get.return_value = gen.maybe_future(None)
+
+        fake_name = 'abc'
+        star = yield StarService().get_star_by_name(fake_name)
+
+        mock_get.assert_called_once_with(fake_name)
+        self.assertIsNone(star)
 
     @mock.patch.object(StarStore, 'get_stars')
     @gen_test
