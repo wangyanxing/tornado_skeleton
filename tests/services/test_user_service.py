@@ -1,5 +1,6 @@
 import uuid
 
+from bootcamp.lib.exceptions import EntityAlreadyExistsError
 from bootcamp.models.user import User
 from bootcamp.services.datastores.user_store import UserStore
 from bootcamp.services.user_service import UserService
@@ -35,6 +36,24 @@ class TestUserService(BaseTestCase):
         self.assertEquals(user.user_name, user_entity.user_name)
         self.assertEquals(user.email, user_entity.email)
 
+    @mock.patch.object(UserStore, 'create_from_entity')
+    @mock.patch.object(UserStore, 'get_user_by_name')
+    @gen_test
+    def test_create_user_with_entity_already_exists(self, mock_get, mock_create):
+        mock_get.return_value = gen.maybe_future(mock.Mock())
+
+        user_entity = User(
+            user_name='fg',
+            password='fgdsb',
+            email='fgdsb@fgdsb'
+        )
+
+        with self.assertRaises(EntityAlreadyExistsError):
+            yield UserService().create_user_with_entity(user_entity)
+
+        mock_get.assert_called_once_with(user_entity.user_name)
+        mock_create.assert_not_called()
+
     @mock.patch.object(UserStore, 'get_user')
     @gen_test
     def test_get_user(self, mock_get):
@@ -47,6 +66,18 @@ class TestUserService(BaseTestCase):
         mock_get.assert_called_once_with(fake_uuid)
         self.assertEquals(user, fake_user)
 
+    @mock.patch.object(UserStore, 'get_user_by_name')
+    @gen_test
+    def test_get_user_by_name(self, mock_get):
+        fake_user = mock.Mock()
+        mock_get.return_value = gen.maybe_future(fake_user)
+
+        fake_user_name = 'fg'
+        user = yield UserService().get_user_by_name(fake_user_name)
+
+        mock_get.assert_called_once_with(fake_user_name)
+        self.assertEquals(user, fake_user)
+
     @mock.patch.object(UserStore, 'get_users')
     @gen_test
     def test_get_users(self, mock_get):
@@ -57,11 +88,3 @@ class TestUserService(BaseTestCase):
 
         mock_get.assert_called_once_with()
         self.assertEquals(user, fake_user)
-
-    @mock.patch.object(UserStore, 'is_user_exist')
-    @gen_test
-    def test_is_user_exist(self, mock_exist):
-        mock_exist.return_value = gen.maybe_future(False)
-
-        exist = yield UserService().is_user_exist('fg')
-        self.assertEquals(exist, False)

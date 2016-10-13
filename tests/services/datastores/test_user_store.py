@@ -21,8 +21,8 @@ class TestUserStore(BaseTestCase):
     @gen_test
     def test_get_user(self):
         fake_uuid = uuid.uuid4()
-        user = yield UserStore().get_user(fake_uuid)
-        self.assertIsNotNone(user)
+        user = yield UserStore().get_user(str(fake_uuid))
+        self.assertIsNone(user)
 
     @mock.patch.object(User, 'persist')
     @mock.patch('bootcamp.lib.database.get_db_session')
@@ -39,22 +39,3 @@ class TestUserStore(BaseTestCase):
         yield UserStore().create_from_entity(user_entity)
 
         mock_persist.assert_called_once_with()
-
-    # @mock.patch.object(User, 'persist')
-    @mock.patch('bootcamp.lib.database.get_db_session')
-    @gen_test
-    def test_is_user_exist(self, mock_get_db):
-        user_entity = User(
-            user_name='fgdsb',
-            password='fgdsb',
-            email='fgdsb@fgdsb',
-        )
-        mock_get_db.return_value = mock.Mock()
-
-        exist = yield UserStore().is_user_exist('fgdsb')
-        self.assertEquals(exist, False)
-
-        yield UserStore().create_from_entity(user_entity)
-
-        exist = yield UserStore().is_user_exist('fgdsb')
-        self.assertEquals(exist, True)

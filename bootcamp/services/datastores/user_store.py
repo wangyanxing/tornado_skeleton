@@ -15,11 +15,12 @@ class UserStore(object):
     @coroutine
     def get_user(self, uuid):
         query = User.query().filter(User.uuid == uuid)
-        return query
+        return query.first()
 
     @coroutine
-    def is_user_exist(self, user_name):
-        return User.query().filter(User.user_name == user_name).count() != 0
+    def get_user_by_name(self, user_name):
+        query = User.query().filter(User.user_name == user_name)
+        return query.first()
 
     @coroutine
     def create_from_entity(self, user):
