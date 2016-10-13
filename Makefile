@@ -39,6 +39,7 @@ clean:
 
 .PHONY: test
 test:
+	make lint
 	python ./scripts/bootstrap_db.py bootstrap
 	$(pytest) $(test_args)
 
