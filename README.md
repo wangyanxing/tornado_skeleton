@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/cjlm007/tornado_skeleton.svg?branch=master)](https://travis-ci.org/cjlm007/tornado_skeleton)
+[![Build Status](https://travis-ci.org/cjlm007/tornado_skeleton.svg?branch=master)](https://travis-ci.org/cjlm007/tornado_skeleton) [![Code Climate](https://codeclimate.com/github/cjlm007/tornado_skeleton/badges/gpa.svg)](https://codeclimate.com/github/cjlm007/tornado_skeleton) [![Test Coverage](https://codeclimate.com/github/cjlm007/tornado_skeleton/badges/coverage.svg)](https://codeclimate.com/github/cjlm007/tornado_skeleton/coverage)
 
 ## Prerequisites
 
