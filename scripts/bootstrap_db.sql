@@ -38,6 +38,34 @@ CREATE INDEX ix_titles_updated_at ON titles USING btree (updated_at);
 -- Stars
 --
 
+CREATE TABLE stars (
+    id integer NOT NULL,
+    uuid uuid NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone NOT NULL,
+    raw_name character varying(32) NOT NULL,
+    english_name character varying(32) NOT NULL,
+    pronunciation character varying(32)
+);
+
+CREATE SEQUENCE star_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+ALTER SEQUENCE star_id_seq OWNED BY stars.id;
+ALTER TABLE ONLY stars ALTER COLUMN id SET DEFAULT nextval('star_id_seq'::regclass);
+
+ALTER TABLE ONLY stars ADD CONSTRAINT stars_uuid_pkey PRIMARY KEY (uuid);
+
+CREATE INDEX ix_stars_uuid ON stars USING btree (uuid);
+CREATE INDEX ix_stars_id ON stars USING btree (id);
+CREATE INDEX ix_stars_english_name ON stars USING btree (english_name);
+CREATE INDEX ix_stars_raw_name ON stars USING btree (raw_name);
+CREATE INDEX ix_stars_updated_at ON stars USING btree (updated_at);
+
 
 --
 -- Users
