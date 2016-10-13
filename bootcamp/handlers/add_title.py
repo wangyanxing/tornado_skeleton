@@ -1,9 +1,10 @@
 from __future__ import absolute_import
 
 from bootcamp.handlers.base import BaseHandler
+from bootcamp.lib.exceptions import EntityAlreadyExistsError
 from bootcamp.models.title import Title
 from bootcamp.services.title_service import TitleService
-from tornado.gen import coroutine
+from tornado.gen import coroutine, Return
 
 
 class AddTitleHandler(BaseHandler):
@@ -19,5 +20,10 @@ class AddTitleHandler(BaseHandler):
             rate=8,
         )
         service = TitleService()
-        title = yield service.create_title_with_entity(title)
+        try:
+            title = yield service.create_title_with_entity(title)
+        except EntityAlreadyExistsError:
+            self.write('{} already exists'.format(title.title_id))
+            raise Return()
+
         self.write('Added {}'.format(title.uuid))
