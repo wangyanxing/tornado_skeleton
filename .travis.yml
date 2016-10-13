@@ -8,6 +8,9 @@ env:
    #   via the "travis encrypt" command using the project repo's public key
    - secure: "Nx+LmWOfmC0fKJGUJBhw9AGDzrt02qncaDOX7Vzpz7EIKX/rEgPtnDE8mijIBmnBwXj5vGRw5xq4tmZ6GLKH5HkiwTngtVJuV/n0jHgkVp2gfNnKpTJcLie9v2HjgPX6HSueU+pGZLr8X+65OuOEaSBguHLyOJ5YDwVxU3laRb5Sf/Lv6xtJP5vhbMtYRh458MPvy94qcVAc3w7qxoUneAVISEbH6ocgLqkki4LZdtmL4A0Gu9mhnlPCag+Tt2u2fNenU6267F1QgXAtT2cQRJZxbXR436aAlASndOzUoKonVZdBbt9dUFZyrZTpMPhPn8oAqPfi1eVfX9c3iDgz7t76umXYu9juC27vj/45+ForwdExVcFqcWdQVrfTf22kD88xlKssCtTvuW+IfAsIifxthBBSBKJY5LnZbmzhScq2GFE4cNLHRHxnQ+5K0maLFVIwafBQDxKkgBGRgNmUlGGSz0CFRlBUc4Y3E6TFtAudbDRklogxs3C7fW0zD+CE2D+vfAKQTPtYkxfhPJDeIqcSJY1+3gJ47+XaK82kqYfd4shC5IntUzerEoxMx6BUYaGYhpT4B7MuJBVs0KbExFAQ+RgMacjZWOBUoqdewfWFmv0lE9xbWhCsnUPnc4z18MyxXRHVUtdqLiHkD7SWYYfZK89wGmaecan0u699LVo="
 
+before_install:
+      - echo -n | openssl s_client -connect scan.coverity.com:443 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' | sudo tee -a /etc/ssl/certs/ca-
+
 install:
   - make bootstrap
 
