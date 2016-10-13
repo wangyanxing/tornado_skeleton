@@ -9,13 +9,12 @@ class TitleStore(object):
     @coroutine
     def get_titles(self):
         query = Title.query()
-        models = [_ for _ in query]
-        return models
+        return query.all()
 
     @coroutine
     def get_title(self, uuid):
         query = Title.query().filter(Title.uuid == uuid)
-        return query
+        return query.first()
 
     @coroutine
     def create_from_entity(self, title):

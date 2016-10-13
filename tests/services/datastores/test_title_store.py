@@ -8,26 +8,19 @@ from tornado.testing import gen_test
 
 
 class TestTitleStore(BaseTestCase):
-    @mock.patch.object(Title, 'query')
     @gen_test
-    def test_get_titles(self, mock_query):
-        mock_query.return_value = [1, 2, 3]
-
+    def test_get_titles(self):
         titles = yield TitleStore().get_titles()
-
-        mock_query.assert_called_once_with()
-        self.assertEquals(titles, [1, 2, 3])
+        self.assertEquals(titles, [])
 
     @gen_test
     def test_get_title(self):
         fake_uuid = uuid.uuid4()
-        title = yield TitleStore().get_title(fake_uuid)
-        self.assertIsNotNone(title)
+        title = yield TitleStore().get_title(str(fake_uuid))
+        self.assertIsNone(title)
 
-    @mock.patch.object(Title, 'persist')
-    @mock.patch('bootcamp.lib.database.get_db_session')
     @gen_test
-    def test_create_from_entity(self, mock_get_db, mock_persist):
+    def test_create_from_entity(self):
         title_entity = Title(
             title_id='ABC-123',
             title='test title 1',
@@ -37,9 +30,9 @@ class TestTitleStore(BaseTestCase):
             video_size=1000000000,
             rate=8,
         )
-        mock_persist.return_value = None
-        mock_get_db.return_value = mock.Mock()
 
-        yield TitleStore().create_from_entity(title_entity)
+        new_title = yield TitleStore().create_from_entity(title_entity)
+        self.assertEquals(new_title.title_id, title_entity.title_id)
 
-        mock_persist.assert_called_once_with()
+        title = yield TitleStore().get_title(new_title.uuid)
+        self.assertEquals(title.title_id, title.title_id)

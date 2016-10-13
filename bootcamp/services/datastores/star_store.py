@@ -9,13 +9,12 @@ class StarStore(object):
     @coroutine
     def get_stars(self):
         query = Star.query()
-        models = [_ for _ in query]
-        return models
+        return query.all()
 
     @coroutine
     def get_star(self, uuid):
         query = Star.query().filter(Star.uuid == uuid)
-        return query
+        return query.first()
 
     @coroutine
     def create_from_entity(self, entity):
