@@ -15,7 +15,7 @@ class User(Model):
     __tablename__ = 'users'
 
     id = Column(Integer, primary_key=True)
-    uuid = Column(UUID, default=lambda: str(uuid.uuid4()))
+    uuid = Column(UUID, default=lambda: str(uuid.uuid4()))  # pragma: nocover
 
     user_name = Column(String(20))
     password = Column(String(128))

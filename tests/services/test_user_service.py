@@ -58,8 +58,10 @@ class TestUserService(BaseTestCase):
         mock_get.assert_called_once_with()
         self.assertEquals(user, fake_user)
 
-    @mock.patch.object(UserStore, 'get_users')
+    @mock.patch.object(UserStore, 'is_user_exist')
     @gen_test
-    def test_is_user_exist(self, mock_get):
+    def test_is_user_exist(self, mock_exist):
+        mock_exist.return_value = gen.maybe_future(False)
+
         exist = yield UserService().is_user_exist('fg')
         self.assertEquals(exist, False)

@@ -41,21 +41,20 @@ class TestUserStore(BaseTestCase):
         mock_persist.assert_called_once_with()
 
     # @mock.patch.object(User, 'persist')
-    # @mock.patch('bootcamp.lib.database.get_db_session')
-    # @gen_test
-    # def test_is_user_exist(self, mock_get_db, mock_persist):
-    #     user_entity = User(
-    #         user_name='fgdsb',
-    #         password='fgdsb',
-    #         email='fgdsb@fgdsb',
-    #     )
-    #     mock_persist.return_value = True
-    #     mock_get_db.return_value = mock.Mock()
+    @mock.patch('bootcamp.lib.database.get_db_session')
+    @gen_test
+    def test_is_user_exist(self, mock_get_db):
+        user_entity = User(
+            user_name='fgdsb',
+            password='fgdsb',
+            email='fgdsb@fgdsb',
+        )
+        mock_get_db.return_value = mock.Mock()
 
-    #     yield UserStore().create_from_entity(user_entity)
+        exist = yield UserStore().is_user_exist('fgdsb')
+        self.assertEquals(exist, False)
 
-    #     notExist = yield UserStore().is_user_exist('dsbfg')
-    #     self.assertEquals(notExist, False)
+        yield UserStore().create_from_entity(user_entity)
 
-    #     exist = yield UserStore().is_user_exist('fgdsb')
-    #     self.assertEquals(exist, True)
+        exist = yield UserStore().is_user_exist('fgdsb')
+        self.assertEquals(exist, True)

@@ -1,5 +1,3 @@
-import uuid
-
 from bootcamp.services import logger
 from bootcamp.services.datastores.user_store import UserStore
 
@@ -12,8 +10,6 @@ class UserService(object):
 
     @coroutine
     def create_user_with_entity(self, user_entity):
-        if not user_entity.uuid:
-            user_entity.uuid = str(uuid.uuid4())
         user_entity.validate()
 
         user = yield self.store.create_from_entity(user_entity)
