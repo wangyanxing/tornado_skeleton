@@ -31,7 +31,7 @@ drop-db:
 
 .PHONY: serve
 serve:
-	bootcamp-web
+	CLAY_CONFIG=./config/base.yaml bootcamp-web
 
 .PHONY: clean
 clean:
