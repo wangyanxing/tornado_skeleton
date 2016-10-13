@@ -1,5 +1,6 @@
 import uuid
 
+from bootcamp.lib.exceptions import EntityAlreadyExistsError, ResourceNotFoundError
 from bootcamp.models.title import Title
 from bootcamp.services.datastores.title_store import TitleStore
 from bootcamp.services.title_service import TitleService
@@ -39,6 +40,28 @@ class TestTitleService(BaseTestCase):
         self.assertEquals(title.title, title_entity.title)
         self.assertEquals(title.title_id, title_entity.title_id)
 
+    @mock.patch.object(TitleStore, 'create_from_entity')
+    @mock.patch.object(TitleStore, 'get_title_by_id')
+    @gen_test
+    def test_create_title_with_entity_already_exists(self, mock_get, mock_create):
+        mock_get.return_value = gen.maybe_future(mock.Mock())
+
+        title_entity = Title(
+            title_id='ABC-123',
+            title='test title 1',
+            video_path='test',
+            file_names='test file',
+            description='test des',
+            video_size=1000000000,
+            rate=8,
+        )
+
+        with self.assertRaises(EntityAlreadyExistsError):
+            yield TitleService().create_title_with_entity(title_entity)
+
+        mock_get.assert_called_once_with(title_entity.title_id)
+        mock_create.assert_not_called()
+
     @mock.patch.object(TitleStore, 'get_title')
     @gen_test
     def test_get_title(self, mock_get):
@@ -51,10 +74,34 @@ class TestTitleService(BaseTestCase):
         mock_get.assert_called_once_with(fake_uuid)
         self.assertEquals(title, fake_title)
 
+    @mock.patch.object(TitleStore, 'get_title')
+    @gen_test
+    def test_get_title_not_found(self, mock_get):
+        mock_get.return_value = gen.maybe_future(None)
+
+        fake_uuid = uuid.uuid4()
+
+        with self.assertRaises(ResourceNotFoundError):
+            yield TitleService().get_title(fake_uuid)
+
+        mock_get.assert_called_once_with(fake_uuid)
+
+    @mock.patch.object(TitleStore, 'get_title_by_id')
+    @gen_test
+    def test_get_title_by_id(self, mock_get):
+        fake_title = mock.Mock()
+        mock_get.return_value = gen.maybe_future(fake_title)
+
+        fake_title_id = 'ABC-123'
+        title = yield TitleService().get_title_by_id(fake_title_id)
+
+        mock_get.assert_called_once_with(fake_title_id)
+        self.assertEquals(title, fake_title)
+
     @mock.patch.object(TitleStore, 'get_titles')
     @gen_test
     def test_get_titles(self, mock_get):
-        fake_title = mock.Mock()
+        fake_title = []
         mock_get.return_value = gen.maybe_future(fake_title)
 
         title = yield TitleService().get_titles()

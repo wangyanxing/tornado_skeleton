@@ -17,6 +17,11 @@ class TitleStore(object):
         return query.first()
 
     @coroutine
+    def get_title_by_id(self, title_id):
+        query = Title.query().filter(Title.title_id == title_id)
+        return query.first()
+
+    @coroutine
     def create_from_entity(self, title):
         new_title = Title(
             uuid=title.uuid,

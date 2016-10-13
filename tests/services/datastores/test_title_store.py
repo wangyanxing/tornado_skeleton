@@ -35,3 +35,6 @@ class TestTitleStore(BaseTestCase):
 
         title = yield TitleStore().get_title(new_title.uuid)
         self.assertEquals(title.title_id, title.title_id)
+
+        title = yield TitleStore().get_title_by_id(new_title.title_id)
+        self.assertEquals(title.uuid, title.uuid)
