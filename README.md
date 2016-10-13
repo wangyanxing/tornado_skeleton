@@ -1,3 +1,5 @@
+![Build Status](https://travis-ci.org/cjlm007/tornado_skeleton)
+
 ## Prerequisites
 
 * Install pip:
