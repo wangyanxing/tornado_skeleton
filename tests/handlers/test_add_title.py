@@ -1,5 +1,6 @@
 import httplib
 
+from bootcamp.lib.exceptions import EntityAlreadyExistsError
 from bootcamp.services.title_service import TitleService
 from doubles import allow_constructor, expect, patch_class
 import mock
@@ -24,4 +25,15 @@ def test_add_title(http_client, base_url):
     )
     response = yield http_client.fetch(base_url + '/add_title')
     assert response.body == 'Added {}'.format(fake_uuid)
+    assert response.code == httplib.OK
+
+
+@pytest.mark.gen_test
+def test_add_title_already_exists(http_client, base_url):
+    mock_service = gen_mock_service()
+    expect(mock_service).create_title_with_entity.and_raise(
+        EntityAlreadyExistsError,
+    )
+    response = yield http_client.fetch(base_url + '/add_title')
+    assert response.body == 'ABC-123 already exists'
     assert response.code == httplib.OK
