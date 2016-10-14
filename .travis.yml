@@ -6,7 +6,8 @@ install:
   - make bootstrap
 
 script:
-  - make ci
+  - make test
+  - make report
 
 branches:
   only:
