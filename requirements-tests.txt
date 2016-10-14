@@ -6,3 +6,4 @@ pytest-tornado
 flake8-import-order==0.7
 flake8==2.5.4
 coverage==4.0.2
+codeclimate-test-reporter
