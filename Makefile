@@ -4,12 +4,13 @@ TARGET ?= tests
 pytest_args := -s --tb short --cov-config .coveragerc --cov $(project) $(TARGET)
 pytest := $(clay_config) py.test $(pytest_args)
 
-html_report := --cov-report html
 test_args := --cov-report term-missing --cov-report xml --junitxml junit.xml
+ci_args := --cov-report=
 
 
 CLAY_CONFIG ?= config/test.yaml
 export CLAY_CONFIG
+export CODECLIMATE_REPO_TOKEN=f49e0e055395186fb1eb773362e86306d8a043f4b383e8d4bec85780c2a2f61f
 
 .DEFAULT_GOAL := test
 
@@ -39,9 +40,14 @@ clean:
 
 .PHONY: test
 test:
+	@find $(project) "(" -name ".coverage.*" ")" -delete
 	make lint
 	python ./scripts/bootstrap_db.py bootstrap
 	$(pytest) $(test_args)
+
+.PHONY: report
+report:
+	codeclimate-test-reporter --file $(shell find . -name '*.coverage.*')
 
 .PHONY: lint
 lint:

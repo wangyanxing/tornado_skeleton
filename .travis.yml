@@ -6,7 +6,7 @@ install:
   - make bootstrap
 
 script:
-  - make test
+  - make ci
 
 branches:
   only:
@@ -16,5 +16,5 @@ notifications:
   email: false
 
 addons:
-    code_climate:
-        repo_token: f49e0e055395186fb1eb773362e86306d8a043f4b383e8d4bec85780c2a2f61f
+  code_climate:
+    repo_token: f49e0e055395186fb1eb773362e86306d8a043f4b383e8d4bec85780c2a2f61f
