@@ -20,7 +20,7 @@ class AddUserHandler(BaseHandler):
         service = UserService()
 
         try:
-            user = yield service.create_user_with_entity(user)
+            user = yield service.create_with_entity(user)
             self.write('Added {}'.format(user.uuid))
         except EntityAlreadyExistsError:
             self.write('User name {} exist.'.format(user.user_name))

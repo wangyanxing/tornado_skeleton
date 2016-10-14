@@ -8,14 +8,14 @@ from tornado.testing import gen_test
 
 class TestTitleStore(BaseTestCase):
     @gen_test
-    def test_get_titles(self):
-        titles = yield TitleStore().get_titles()
+    def test_get_all(self):
+        titles = yield TitleStore().get_all()
         self.assertEquals(titles, [])
 
     @gen_test
-    def test_get_title(self):
+    def test_get(self):
         fake_uuid = uuid.uuid4()
-        title = yield TitleStore().get_title(str(fake_uuid))
+        title = yield TitleStore().get(str(fake_uuid))
         self.assertIsNone(title)
 
     @gen_test
@@ -33,8 +33,8 @@ class TestTitleStore(BaseTestCase):
         new_title = yield TitleStore().create_from_entity(title_entity)
         self.assertEquals(new_title.title_id, title_entity.title_id)
 
-        title = yield TitleStore().get_title(new_title.uuid)
-        self.assertEquals(title.title_id, title.title_id)
+        title = yield TitleStore().get(new_title.uuid)
+        self.assertEquals(title.title_id, new_title.title_id)
 
-        title = yield TitleStore().get_title_by_id(new_title.title_id)
-        self.assertEquals(title.uuid, title.uuid)
+        title = yield TitleStore().get_by_id(new_title.title_id)
+        self.assertEquals(title.uuid, new_title.uuid)

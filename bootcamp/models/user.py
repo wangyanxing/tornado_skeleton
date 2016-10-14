@@ -16,8 +16,8 @@ class User(Model):
 
     id = Column(Integer, primary_key=True)
     uuid = Column(UUID, default=lambda: str(uuid.uuid4()), nullable=False)  # pragma: no cover
-    user_name = Column(String(20))
-    password = Column(String(128))
+    user_name = Column(String(20), nullable=False)
+    password = Column(String(128), nullable=False)
     email = Column(String(320))
 
     @classmethod

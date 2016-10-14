@@ -9,5 +9,5 @@ class TitlesHandler(BaseHandler):
     @coroutine
     def get(self):
         service = TitleService()
-        titles = yield service.get_titles()
+        titles = yield service.get_all()
         self.write('Number of titles: {}'.format(len(titles)))

@@ -14,8 +14,8 @@ def drop_database(env='development', database_type='write'):
     db_info = db[database_type][0]
     db_name = db_info['dbname']
 
-    print 'Deleting %s database' % db_name
-    os.system('psql template1 -c "DROP DATABASE IF EXISTS %s";' % db_name)
+    print('Deleting %s database' % db_name)
+    os.system('psql -q template1 -c "DROP DATABASE IF EXISTS %s";' % db_name)
 
 
 def bootstrap_database(env='development', database_type='write'):
@@ -29,7 +29,7 @@ def bootstrap_database(env='development', database_type='write'):
     db_name = db_info['dbname']
     db_user = db_info['user']
 
-    print 'Creating %s database' % db_name
+    print('Creating %s database' % db_name)
 
     commands = []
     commands.append('''
@@ -52,9 +52,9 @@ def bootstrap_database(env='development', database_type='write'):
     ))
 
     for command in commands:
-        os.system('psql template1 -c "%s";' % command.replace('\n', ' '))
+        os.system('psql -q template1 -c "%s";' % command.replace('\n', ' '))
 
-    os.system('psql -U {user} -d {db} -a -f scripts/bootstrap_db.sql'.format(
+    os.system('psql -U {user} -d {db} -a -f scripts/bootstrap_db.sql -q'.format(
         user=db_user, db=db_name))
 
 
@@ -64,6 +64,7 @@ def main():
             drop_database()
         else:
             bootstrap_database()
+
 
 if __name__ == '__main__':
     sys.exit(main())

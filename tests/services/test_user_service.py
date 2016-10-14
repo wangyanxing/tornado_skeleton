@@ -1,7 +1,3 @@
-import uuid
-
-from bootcamp.lib.exceptions import EntityAlreadyExistsError
-from bootcamp.models.user import User
 from bootcamp.services.datastores.user_store import UserStore
 from bootcamp.services.user_service import UserService
 import mock
@@ -11,80 +7,25 @@ from tornado.testing import gen_test
 
 
 class TestUserService(BaseTestCase):
-    @mock.patch.object(UserStore, 'create_from_entity')
-    @mock.patch.object(UserService, 'handle_user_added')
+    @mock.patch.object(UserStore, 'get_by_name')
     @gen_test
-    def test_create_user_with_entity(self, mock_handle_added, mock_create):
-        fake_user = mock.Mock(
-            uuid=uuid.uuid4(),
-            user_name='fg',
-            email='fgdsb@fgdsb',
-        )
-        mock_create.return_value = gen.maybe_future(fake_user)
-        mock_handle_added.return_value = gen.maybe_future(None)
-
-        user_entity = User(
-            user_name='fg',
-            password='fgdsb',
-            email='fgdsb@fgdsb',
-        )
-        user = yield UserService().create_user_with_entity(user_entity)
-
-        mock_create.assert_called_once_with(user_entity)
-        mock_handle_added.assert_called_once_with(fake_user)
-
-        self.assertEquals(user.user_name, user_entity.user_name)
-        self.assertEquals(user.email, user_entity.email)
-
-    @mock.patch.object(UserStore, 'create_from_entity')
-    @mock.patch.object(UserStore, 'get_user_by_name')
-    @gen_test
-    def test_create_user_with_entity_already_exists(self, mock_get, mock_create):
-        mock_get.return_value = gen.maybe_future(mock.Mock())
-
-        user_entity = User(
-            user_name='fg',
-            password='fgdsb',
-            email='fgdsb@fgdsb'
-        )
-
-        with self.assertRaises(EntityAlreadyExistsError):
-            yield UserService().create_user_with_entity(user_entity)
-
-        mock_get.assert_called_once_with(user_entity.user_name)
-        mock_create.assert_not_called()
-
-    @mock.patch.object(UserStore, 'get_user')
-    @gen_test
-    def test_get_user(self, mock_get):
-        fake_user = mock.Mock()
-        mock_get.return_value = gen.maybe_future(fake_user)
-
-        fake_uuid = uuid.uuid4()
-        user = yield UserService().get_user(fake_uuid)
-
-        mock_get.assert_called_once_with(fake_uuid)
-        self.assertEquals(user, fake_user)
-
-    @mock.patch.object(UserStore, 'get_user_by_name')
-    @gen_test
-    def test_get_user_by_name(self, mock_get):
+    def test_get_by_name(self, mock_get):
         fake_user = mock.Mock()
         mock_get.return_value = gen.maybe_future(fake_user)
 
         fake_user_name = 'fg'
-        user = yield UserService().get_user_by_name(fake_user_name)
+        user = yield UserService().get_by_name(fake_user_name)
 
         mock_get.assert_called_once_with(fake_user_name)
         self.assertEquals(user, fake_user)
 
-    @mock.patch.object(UserStore, 'get_users')
+    @mock.patch.object(UserStore, 'get_by_name')
     @gen_test
-    def test_get_users(self, mock_get):
-        fake_user = mock.Mock()
+    def test_check_duplicates(self, mock_get):
+        fake_user = mock.Mock(user_name='fgdsb')
         mock_get.return_value = gen.maybe_future(fake_user)
 
-        user = yield UserService().get_users()
+        dup = yield UserService().check_duplicates(fake_user)
 
-        mock_get.assert_called_once_with()
-        self.assertEquals(user, fake_user)
+        mock_get.assert_called_once_with('fgdsb')
+        self.assertTrue(dup)

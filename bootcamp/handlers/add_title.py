@@ -21,7 +21,7 @@ class AddTitleHandler(BaseHandler):
         )
         service = TitleService()
         try:
-            title = yield service.create_title_with_entity(title)
+            title = yield service.create_with_entity(title)
             self.write('Added {}'.format(title.uuid))
         except EntityAlreadyExistsError:
             self.write('{} already exists'.format(title.title_id))

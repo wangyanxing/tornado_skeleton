@@ -22,7 +22,7 @@ class AddStarHandler(BaseHandler):
             english_name=gen_random_name(),
         )
         service = StarService()
-        star = yield service.create_star_with_entity(star)
+        star = yield service.create_with_entity(star)
         self.write('Added {}'.format(star.uuid))
         self.write('<br>')
         self.write('Name {}'.format(star.raw_name))

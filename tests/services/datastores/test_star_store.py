@@ -8,19 +8,19 @@ from tornado.testing import gen_test
 
 class TestStarStore(BaseTestCase):
     @gen_test
-    def test_get_stars(self):
-        stars = yield StarStore().get_stars()
+    def test_get_all(self):
+        stars = yield StarStore().get_all()
         self.assertEquals(stars, [])
 
     @gen_test
-    def test_get_star(self):
+    def test_get(self):
         fake_uuid = uuid.uuid4()
-        star = yield StarStore().get_star(str(fake_uuid))
+        star = yield StarStore().get(str(fake_uuid))
         self.assertIsNone(star)
 
     @gen_test
-    def test_get_star_by_name(self):
-        star = yield StarStore().get_star_by_name('not found')
+    def test_get_by_name(self):
+        star = yield StarStore().get_by_name('not found')
         self.assertIsNone(star)
 
     @gen_test
@@ -32,5 +32,5 @@ class TestStarStore(BaseTestCase):
         new_star = yield StarStore().create_from_entity(star_entity)
         self.assertEquals(new_star.raw_name, star_entity.raw_name)
 
-        star = yield StarStore().get_star(new_star.uuid)
+        star = yield StarStore().get(new_star.uuid)
         self.assertEquals(star.raw_name, new_star.raw_name)

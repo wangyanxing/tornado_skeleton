@@ -17,7 +17,7 @@ def gen_mock_service():
 @pytest.mark.gen_test
 def test_users(http_client, base_url):
     mock_service = gen_mock_service()
-    expect(mock_service).get_users.and_return_future([])
+    expect(mock_service).get_all.and_return_future([])
 
     response = yield http_client.fetch(base_url + '/users')
     assert response.body == 'Number of users: 0'

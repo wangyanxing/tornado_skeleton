@@ -11,5 +11,5 @@ class UsersHandler(BaseHandler):
     @coroutine
     def get(self):
         service = UserService()
-        users = yield service.get_users()
+        users = yield service.get_all()
         self.write('Number of users: {}'.format(len(users)))

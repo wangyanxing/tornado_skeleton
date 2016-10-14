@@ -9,5 +9,5 @@ class StarsHandler(BaseHandler):
     @coroutine
     def get(self):
         service = StarService()
-        stars = yield service.get_stars()
+        stars = yield service.get_all()
         self.write('Number of stars: {}'.format(len(stars)))
