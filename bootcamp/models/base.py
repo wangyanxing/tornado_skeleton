@@ -2,6 +2,8 @@ import datetime
 
 from bootcamp.lib.camel_case import snake_to_camel
 from bootcamp.lib.database import get_db_session
+from bootcamp.lib.validation import is_valid_uuid_string
+from bootcamp.models import logger
 import pytz
 from sqlalchemy import Column, DateTime, event
 from sqlalchemy.ext import declarative
@@ -23,8 +25,10 @@ class Base(object):  # pragma: no cover
         raise NotImplementedError
 
     @classmethod
-    def get(cls, id_):
-        q = cls.query().filter_by(id=id_)
+    def get(cls, uuid):
+        uuid = is_valid_uuid_string(uuid)
+        logger.info("Accessed {} with UUID".format(uuid))
+        q = cls.query().filter_by(uuid=uuid)
         return q.first()
 
     def persist(self):

@@ -1,7 +1,5 @@
 import uuid
 
-from bootcamp.lib.validation import is_valid_uuid_string
-from bootcamp.models import logger
 from bootcamp.models.base import Model
 from sqlalchemy import (
     Column,
@@ -24,12 +22,6 @@ class Title(Model):
     description = Column(Text)
     video_size = Column(Integer)  # In bytes
     rate = Column(Integer)
-
-    @classmethod
-    def get(cls, uuid):
-        logger.info("Accessed title {} with UUID".format(uuid))
-        q = cls.query().filter_by(uuid=is_valid_uuid_string(uuid))
-        return q.first()
 
     def to_dict(self):
         return {

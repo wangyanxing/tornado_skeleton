@@ -1,7 +1,5 @@
 import uuid
 
-from bootcamp.lib.validation import is_valid_uuid_string
-from bootcamp.models import logger
 from bootcamp.models.base import Model
 from sqlalchemy import (
     Column,
@@ -19,12 +17,6 @@ class User(Model):
     user_name = Column(String(20), nullable=False)
     password = Column(String(128), nullable=False)
     email = Column(String(320))
-
-    @classmethod
-    def get(cls, uuid):
-        logger.info("Accessed user {} with UUID".format(uuid))
-        q = cls.query().filter_by(uuid=is_valid_uuid_string(uuid))
-        return q.first()
 
     def to_dict(self):
         return {
