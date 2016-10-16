@@ -13,7 +13,9 @@ CREATE TABLE titles (
     file_names character varying(128) NOT NULL,
     description text,
     video_size integer,
-    rate integer
+    rate integer,
+    length numeric,
+    published_date timestamp
 );
 
 CREATE SEQUENCE title_id_seq

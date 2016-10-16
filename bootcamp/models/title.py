@@ -3,7 +3,9 @@ import uuid
 from bootcamp.models.base import Model
 from sqlalchemy import (
     Column,
+    DateTime,
     Integer,
+    Numeric,
     String,
     Text,
 )
@@ -21,7 +23,9 @@ class Title(Model):
     file_names = Column(String(128), nullable=False)
     description = Column(Text)
     video_size = Column(Integer)  # In bytes
-    rate = Column(Integer)
+    rate = Column(Numeric)
+    length = Column(Integer)
+    published_date = Column(DateTime)
 
     def to_dict(self):
         return {
