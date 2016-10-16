@@ -19,7 +19,8 @@ class AddStarHandler(BaseHandler):
     def get(self):
         star = Star(
             raw_name=gen_random_name(),
-            english_name=gen_random_name(),
+            hiragana=gen_random_name(),
+            english_id=gen_random_name(),
         )
         service = StarService()
         star = yield service.create_with_entity(star)

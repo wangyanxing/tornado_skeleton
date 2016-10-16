@@ -22,7 +22,9 @@ class Title(Model):
     video_path = Column(String(128), nullable=False)
     file_names = Column(String(128), nullable=False)
     description = Column(Text)
+    maker = Column(String(32))
     video_size = Column(Integer)  # In bytes
+    stars = Column(Integer)
     rate = Column(Numeric)
     length = Column(Integer)
     published_date = Column(DateTime)

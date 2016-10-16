@@ -27,7 +27,7 @@ class TestStarStore(BaseTestCase):
     def test_create_from_entity(self):
         star_entity = Star(
             raw_name='test',
-            english_name='test2',
+            hiragana='test2',
             english_id='test_2',
         )
         new_star = yield StarStore().create_from_entity(star_entity)

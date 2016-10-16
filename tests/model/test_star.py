@@ -11,7 +11,7 @@ class TestStar(BaseTestCase):
         self.star = Star(
             id=1,
             uuid='1cf41b3d-f7ad-4238-bf08-8794cf7ae0f4',
-            english_name='ABC',
+            hiragana='ABC',
             english_id='abc',
             raw_name='abc',
         )
@@ -21,7 +21,7 @@ class TestStar(BaseTestCase):
     def test_to_dict(self):
         expected = {
             'uuid': '1cf41b3d-f7ad-4238-bf08-8794cf7ae0f4',
-            'englishName': 'ABC',
+            'hiragana': 'ABC',
             'englishId': 'abc',
             'rawName': 'abc',
             'pronunciation': None,
@@ -37,7 +37,7 @@ class TestStar(BaseTestCase):
         with self.assertRaises(IntegrityError):
             title = Star(
                 uuid=str(uuid.uuid4()),
-                english_name=None,
+                hiragana=None,
                 english_id=None,
                 raw_name='abc',
             )

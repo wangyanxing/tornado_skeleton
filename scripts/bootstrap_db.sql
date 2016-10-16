@@ -12,7 +12,9 @@ CREATE TABLE titles (
     video_path character varying(128) NOT NULL,
     file_names character varying(128) NOT NULL,
     description text,
+    maker character varying(32),
     video_size integer,
+    stars integer,
     rate integer,
     length numeric,
     published_date timestamp
@@ -46,9 +48,10 @@ CREATE TABLE stars (
     created_at timestamp with time zone NOT NULL,
     updated_at timestamp with time zone NOT NULL,
     raw_name character varying(32) NOT NULL,
-    english_name character varying(32) NOT NULL,
+    hiragana character varying(32) NOT NULL,
     english_id character varying(32) NOT NULL,
-    pronunciation character varying(32)
+    pronunciation character varying(32),
+    num_titles integer
 );
 
 CREATE SEQUENCE star_id_seq
