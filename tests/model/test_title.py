@@ -1,3 +1,4 @@
+import datetime
 import uuid
 
 from bootcamp.models.title import Title
@@ -17,7 +18,9 @@ class TestTitle(BaseTestCase):
             file_names='test file',
             description='test des',
             video_size=1000000000,
-            rate=8,
+            rate=8.1,
+            length=100,
+            published_date=datetime.date(2007, 12, 5),
         )
         super(TestTitle, self).setUp()
 
@@ -32,7 +35,9 @@ class TestTitle(BaseTestCase):
             'fileNames': 'test file',
             'description': 'test des',
             'videoSize': 1000000000,
-            'rate': 8,
+            'rate': 8.1,
+            'length': 100,
+            'publishedDate': '2007-12-05',
         }
         assert self.title.to_dict() == expected
 

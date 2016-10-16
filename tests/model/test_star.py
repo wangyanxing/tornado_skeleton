@@ -12,6 +12,7 @@ class TestStar(BaseTestCase):
             id=1,
             uuid='1cf41b3d-f7ad-4238-bf08-8794cf7ae0f4',
             english_name='ABC',
+            english_id='abc',
             raw_name='abc',
         )
         super(TestStar, self).setUp()
@@ -21,6 +22,7 @@ class TestStar(BaseTestCase):
         expected = {
             'uuid': '1cf41b3d-f7ad-4238-bf08-8794cf7ae0f4',
             'englishName': 'ABC',
+            'englishId': 'abc',
             'rawName': 'abc',
             'pronunciation': None,
         }
@@ -36,6 +38,7 @@ class TestStar(BaseTestCase):
             title = Star(
                 uuid=str(uuid.uuid4()),
                 english_name=None,
+                english_id=None,
                 raw_name='abc',
             )
             self.save(title)

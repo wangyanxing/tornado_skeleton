@@ -38,4 +38,6 @@ class Title(Model):
             'description': self.description,
             'videoSize': self.video_size,
             'rate': self.rate,
+            'length': self.length,
+            'publishedDate': str(self.published_date),
         }

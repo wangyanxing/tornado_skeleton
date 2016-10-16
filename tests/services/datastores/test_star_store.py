@@ -28,6 +28,7 @@ class TestStarStore(BaseTestCase):
         star_entity = Star(
             raw_name='test',
             english_name='test2',
+            english_id='test_2',
         )
         new_star = yield StarStore().create_from_entity(star_entity)
         self.assertEquals(new_star.raw_name, star_entity.raw_name)

@@ -47,6 +47,7 @@ CREATE TABLE stars (
     updated_at timestamp with time zone NOT NULL,
     raw_name character varying(32) NOT NULL,
     english_name character varying(32) NOT NULL,
+    english_id character varying(32) NOT NULL,
     pronunciation character varying(32)
 );
 
@@ -64,7 +65,7 @@ ALTER TABLE ONLY stars ADD CONSTRAINT stars_uuid_pkey PRIMARY KEY (uuid);
 
 CREATE INDEX ix_stars_uuid ON stars USING btree (uuid);
 CREATE INDEX ix_stars_id ON stars USING btree (id);
-CREATE INDEX ix_stars_english_name ON stars USING btree (english_name);
+CREATE INDEX ix_stars_english_id ON stars USING btree (english_id);
 CREATE INDEX ix_stars_raw_name ON stars USING btree (raw_name);
 CREATE INDEX ix_stars_updated_at ON stars USING btree (updated_at);
 
