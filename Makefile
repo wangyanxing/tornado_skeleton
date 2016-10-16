@@ -17,7 +17,7 @@ export CODECLIMATE_REPO_TOKEN=f49e0e055395186fb1eb773362e86306d8a043f4b383e8d4be
 .PHONY: bootstrap
 bootstrap:
 	pip install -U "setuptools>=19,<20"
-	pip install -U "pip>=7,<8"
+	pip install -U "pip>=8"
 	pip install -r requirements-tests.txt
 	pip install -r requirements.txt
 	python setup.py develop
