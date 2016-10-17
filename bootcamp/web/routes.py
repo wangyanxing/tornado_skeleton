@@ -1,6 +1,5 @@
 from __future__ import absolute_import
 
-from ..handlers.add_star import AddStarHandler
 from ..handlers.add_title import AddTitleHandler
 from ..handlers.add_user import AddUserHandler
 from ..handlers.health import HealthHandler
@@ -18,6 +17,5 @@ def get_routes():
         (r'/titles', TitlesHandler),
         (r'/add_user', AddUserHandler),
         (r'/users', UsersHandler),
-        (r'/add_star', AddStarHandler),
         (r'/stars', StarsHandler),
     ]

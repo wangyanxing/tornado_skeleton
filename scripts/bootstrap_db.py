@@ -54,7 +54,7 @@ def bootstrap_database(env='development', database_type='write'):
     for command in commands:
         os.system('psql -q template1 -c "%s";' % command.replace('\n', ' '))
 
-    os.system('psql -U {user} -d {db} -a -f scripts/bootstrap_db.sql -q'.format(
+    os.system('psql -U {user} -d {db} -a -f scripts/bootstrap_db.sql >/dev/null'.format(
         user=db_user, db=db_name))
 
 

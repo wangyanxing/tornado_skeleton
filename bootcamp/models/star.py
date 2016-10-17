@@ -18,6 +18,7 @@ class Star(Model):
     hiragana = Column(String(32), nullable=False)
     english_id = Column(String(32), nullable=False)
     pronunciation = Column(String(32))
+    other_names = Column(String(64))
     num_titles = Column(Integer)
 
     def to_dict(self):

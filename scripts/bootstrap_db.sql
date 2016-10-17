@@ -51,6 +51,7 @@ CREATE TABLE stars (
     hiragana character varying(32) NOT NULL,
     english_id character varying(32) NOT NULL,
     pronunciation character varying(32),
+    other_names character varying(64),
     num_titles integer
 );
 
