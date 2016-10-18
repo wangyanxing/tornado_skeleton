@@ -20,11 +20,11 @@ class Title(Model):
     title_id = Column(String(10), nullable=False)
     title = Column(Text, nullable=False)
     video_path = Column(String(128), nullable=False)
-    file_names = Column(String(128), nullable=False)
+    file_names = Column(ARRAY(Text), nullable=False)
+    stars = Column(ARRAY(UUID), nullable=False)
     description = Column(Text)
     maker = Column(String(32))
     video_size = Column(Integer)  # In bytes
-    stars = Column(Integer)
     rate = Column(Numeric)
     length = Column(Integer)
     published_date = Column(DateTime)
@@ -37,6 +37,7 @@ class Title(Model):
             'title': self.title,
             'videoPath': self.video_path,
             'fileNames': self.file_names,
+            'stars': self.stars,
             'description': self.description,
             'videoSize': self.video_size,
             'rate': self.rate,

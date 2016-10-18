@@ -16,7 +16,11 @@ class TestTitle(BaseTestCase):
             'titleId': 'ABC-123',
             'title': 'test title 1',
             'videoPath': 'test',
-            'fileNames': 'test file',
+            'fileNames': ['test file'],
+            'stars': [
+                '9f78adf8-f268-451a-bfa7-0478b6a64d47',
+                '24c8cf4b-b551-4bef-95fe-30e2a6749929',
+            ],
             'description': 'test des',
             'videoSize': 1000000000,
             'rate': 8.2,

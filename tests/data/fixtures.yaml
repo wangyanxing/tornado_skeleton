@@ -19,7 +19,11 @@ title:
     title_id: 'ABC-123'
     title: 'test title 1'
     video_path: 'test'
-    file_names: 'test file'
+    file_names: ['test file']
+    stars: [
+      '9f78adf8-f268-451a-bfa7-0478b6a64d47',
+      '24c8cf4b-b551-4bef-95fe-30e2a6749929',
+    ]
     description: 'test des'
     video_size: 1000000000
     rate: 8.2

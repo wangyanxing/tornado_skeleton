@@ -1,5 +1,7 @@
 from __future__ import absolute_import
 
+import uuid
+
 from bootcamp.handlers.base import BaseHandler
 from bootcamp.lib.exceptions import EntityAlreadyExistsError
 from bootcamp.models.title import Title
@@ -14,8 +16,9 @@ class AddTitleHandler(BaseHandler):
             title_id='ABC-123',
             title='test title 1',
             video_path='test',
-            file_names='test file',
+            file_names=['test file'],
             description='test des',
+            stars=[str(uuid.uuid4())],
             video_size=1000000000,
             rate=8,
         )
