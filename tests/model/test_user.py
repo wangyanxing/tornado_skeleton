@@ -16,6 +16,8 @@ class TestUser(BaseTestCase):
             'userName': 'fg',
             'password': 'fgdsb',
             'email': 'fgdsb@fgdsb',
+            'likedTitles': [],
+            'playTimes': '{"210eb8b3-9b82-4762-add9-0727dc2bcc99": 2}',
         }
         assert self.user.to_dict() == expected
 

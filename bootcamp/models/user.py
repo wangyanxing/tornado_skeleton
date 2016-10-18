@@ -6,7 +6,7 @@ from sqlalchemy import (
     Integer,
     String,
 )
-from sqlalchemy.dialects.postgresql import ARRAY, UUID
+from sqlalchemy.dialects.postgresql import ARRAY, JSON, UUID
 
 
 class User(Model):
@@ -18,6 +18,7 @@ class User(Model):
     password = Column(String(128), nullable=False)
     email = Column(String(320))
     liked_titles = Column(ARRAY(UUID))
+    play_times = Column(JSON)  # Key UUID, value Integer
 
     def to_dict(self):
         return {
@@ -25,4 +26,6 @@ class User(Model):
             'userName': self.user_name,
             'password': self.password,
             'email': self.email,
+            'likedTitles': self.liked_titles,
+            'playTimes': self.play_times,
         }
