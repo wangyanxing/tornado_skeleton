@@ -31,6 +31,7 @@ class TestTitleStore(BaseTestCase):
             rate=8.2,
             length=160,
             published_date=datetime.date(2007, 12, 5),
+            tags=[1, 2, 3],
         )
 
         new_title = yield TitleStore().create_from_entity(title_entity)
@@ -42,3 +43,4 @@ class TestTitleStore(BaseTestCase):
         title = yield TitleStore().get_by_id(new_title.title_id)
         self.assertEquals(title.uuid, new_title.uuid)
         self.assertEquals(title.published_date, datetime.datetime(2007, 12, 5, 0, 0))
+        self.assertEquals(title.tags, [1, 2, 3])

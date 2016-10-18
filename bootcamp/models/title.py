@@ -9,7 +9,7 @@ from sqlalchemy import (
     String,
     Text,
 )
-from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy.dialects.postgresql import ARRAY, UUID
 
 
 class Title(Model):
@@ -28,6 +28,7 @@ class Title(Model):
     rate = Column(Numeric)
     length = Column(Integer)
     published_date = Column(DateTime)
+    tags = Column(ARRAY(Integer))
 
     def to_dict(self):
         return {

@@ -17,7 +17,8 @@ CREATE TABLE titles (
     stars integer,
     rate integer,
     length numeric,
-    published_date timestamp
+    published_date timestamp,
+    tags integer[]
 );
 
 CREATE SEQUENCE title_id_seq
