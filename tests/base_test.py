@@ -1,4 +1,5 @@
 import contextlib
+import uuid
 
 from bootcamp.lib import database
 from bootcamp.models.base import Model
@@ -26,3 +27,8 @@ class BaseTestCase(AsyncTestCase, FixturesManagerMixin):
         database.get_db_session('write').add(model)
         database.get_db_session('write').commit()
         database.get_db_session('read').expunge_all()
+
+    def fixture_with_new_uuid(self, key):
+        return self.install_fixture(key, overrides={
+            'uuid': str(uuid.uuid4())
+        })

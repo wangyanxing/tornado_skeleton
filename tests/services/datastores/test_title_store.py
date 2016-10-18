@@ -1,7 +1,6 @@
 import datetime
 import uuid
 
-from bootcamp.models.title import Title
 from bootcamp.services.datastores.title_store import TitleStore
 from tests.base_test import BaseTestCase
 from tornado.testing import gen_test
@@ -21,18 +20,7 @@ class TestTitleStore(BaseTestCase):
 
     @gen_test
     def test_create_from_entity(self):
-        title_entity = Title(
-            title_id='ABC-123',
-            title='test title 1',
-            video_path='test',
-            file_names='test file',
-            description='test des',
-            video_size=1000000000,
-            rate=8.2,
-            length=160,
-            published_date=datetime.date(2007, 12, 5),
-            tags=[1, 2, 3],
-        )
+        title_entity = self.fixture_with_new_uuid('title')
 
         new_title = yield TitleStore().create_from_entity(title_entity)
         self.assertEquals(new_title.title_id, title_entity.title_id)

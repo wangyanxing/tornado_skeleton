@@ -24,10 +24,9 @@ class TestStarStore(BaseTestCase):
 
     @gen_test
     def test_create_from_entity(self):
-        star_entity = self.install_fixture('star')
-
+        star_entity = self.fixture_with_new_uuid('star')
         new_star = yield StarStore().create_from_entity(star_entity)
         self.assertEquals(new_star.raw_name, star_entity.raw_name)
 
         star = yield StarStore().get(new_star.uuid)
-        self.assertEquals(star.raw_name, new_star.raw_name)
+        self.assertEquals(star.raw_name, star_entity.raw_name)

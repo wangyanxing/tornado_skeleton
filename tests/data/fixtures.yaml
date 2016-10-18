@@ -1,6 +1,62 @@
 star:
   model: Star
   fields:
+    uuid: '5b89bbf4-49a7-4ba1-ad1b-c2936861a527'
     raw_name: 'Test Star'
     hiragana: '我'
     english_id: 'test_star'
+
+star_invalid:
+  model: Star
+  fields:
+    id: 1
+    uuid: '82f28d96-0f5b-4038-8c41-93f234d33c20'
+    english_id: 'test_star2'
+
+title:
+  model: Title
+  fields:
+    title_id: 'ABC-123'
+    title: 'test title 1'
+    video_path: 'test'
+    file_names: 'test file'
+    description: 'test des'
+    video_size: 1000000000
+    rate: 8.2
+    length: 160
+    published_date: '2007-12-05'
+    tags: [1, 2, 3]
+
+title_invalid:
+  model: Title
+  fields:
+    video_path: 'test'
+    file_names: 'test file'
+    description: 'test des'
+    video_size: 1000000000
+    rate: 8.2
+    length: 160
+    published_date: '2007-12-05'
+    tags: [1, 2, 3]
+
+user:
+  model: User
+  fields:
+    user_name: 'fg'
+    password: 'fgdsb'
+    email: 'fgdsb@fgdsb'
+
+user_invalid:
+  model: User
+  fields:
+    password: 'fgdsb'
+    email: 'fgdsb@fgdsb'
+
+tag:
+  model: Tag
+  fields:
+    name: 'Test tag'
+
+tag_invalid:
+  model: Tag
+

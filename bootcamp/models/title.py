@@ -33,7 +33,6 @@ class Title(Model):
     def to_dict(self):
         return {
             'uuid': self.uuid,
-            'id': self.id,
             'titleId': self.title_id,
             'title': self.title,
             'videoPath': self.video_path,

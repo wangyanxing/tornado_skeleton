@@ -1,6 +1,5 @@
 import uuid
 
-from bootcamp.models.user import User
 from bootcamp.services.datastores.user_store import UserStore
 from tests.base_test import BaseTestCase
 from tornado.testing import gen_test
@@ -20,11 +19,7 @@ class TestUserStore(BaseTestCase):
 
     @gen_test
     def test_create_from_entity(self):
-        user_entity = User(
-            user_name='fg',
-            password='fgdsb',
-            email='fgdsb@fgdsb',
-        )
+        user_entity = self.fixture_with_new_uuid('user')
         new_user = yield UserStore().create_from_entity(user_entity)
         self.assertEquals(user_entity.user_name, user_entity.user_name)
 
