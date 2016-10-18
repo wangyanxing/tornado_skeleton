@@ -18,7 +18,7 @@ CREATE TABLE titles (
     rate integer,
     length numeric,
     published_date timestamp,
-    tags integer[]
+    tags uuid[]
 );
 
 CREATE SEQUENCE title_id_seq
@@ -85,7 +85,8 @@ CREATE TABLE users (
     updated_at timestamp with time zone NOT NULL,
     user_name character varying(20) NOT NULL,
     password character varying(128) NOT NULL,
-    email character varying(320) NOT NULL
+    email character varying(320) NOT NULL,
+    liked_titles uuid[]
 );
 
 CREATE SEQUENCE user_id_seq

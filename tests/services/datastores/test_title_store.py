@@ -31,4 +31,7 @@ class TestTitleStore(BaseTestCase):
         title = yield TitleStore().get_by_id(new_title.title_id)
         self.assertEquals(title.uuid, new_title.uuid)
         self.assertEquals(title.published_date, datetime.datetime(2007, 12, 5, 0, 0))
-        self.assertEquals(title.tags, [1, 2, 3])
+        self.assertEquals(title.tags, [
+            'c736b780-11b6-4190-8529-4d89504b76a0',
+            'efc5907c-7316-4a36-a910-044c18e39d10',
+        ])
