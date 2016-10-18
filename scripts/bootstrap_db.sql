@@ -103,3 +103,32 @@ CREATE INDEX ix_users_uuid ON users USING btree (uuid);
 CREATE INDEX ix_users_id ON users USING btree (id);
 CREATE INDEX ix_users_user_name ON users USING btree (user_name);
 CREATE INDEX ix_users_updated_at ON users USING btree (updated_at);
+
+
+--
+-- Tags
+--
+CREATE TABLE tags (
+    id integer NOT NULL,
+    uuid uuid NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone NOT NULL,
+    name text NOT NULL
+);
+
+CREATE SEQUENCE tag_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+ALTER SEQUENCE tag_id_seq OWNED BY tags.id;
+ALTER TABLE ONLY tags ALTER COLUMN id SET DEFAULT nextval('tag_id_seq'::regclass);
+
+ALTER TABLE ONLY tags ADD CONSTRAINT tag_uuid_pkey PRIMARY KEY (uuid);
+
+CREATE INDEX ix_tags_uuid ON tags USING btree (uuid);
+CREATE INDEX ix_tags_id ON tags USING btree (id);
+CREATE INDEX ix_tags_name ON tags USING btree (name);
+CREATE INDEX ix_tags_updated_at ON tags USING btree (updated_at);
