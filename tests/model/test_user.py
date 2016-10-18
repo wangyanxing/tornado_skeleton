@@ -16,16 +16,18 @@ class TestUser(BaseTestCase):
             'userName': 'fg',
             'password': 'fgdsb',
             'email': 'fgdsb@fgdsb',
-            'likedTitles': [],
+            'likedTitles': '{"210eb8b3-9b82-4762-add9-0727dc2bcc99": true}',
             'playTimes': '{"210eb8b3-9b82-4762-add9-0727dc2bcc99": 2}',
         }
         assert self.user.to_dict() == expected
 
+    @gen_test
     def test_create(self):
         self.save(self.user)
         db_user = User.get(self.user.uuid)
         self.assertIsNotNone(db_user)
 
+    @gen_test
     def test_create_invalid_param(self):
         with self.assertRaises(IntegrityError):
             user = self.fixture_with_new_uuid('user_invalid')

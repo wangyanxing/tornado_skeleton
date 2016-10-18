@@ -29,3 +29,8 @@ class TestUserService(BaseTestCase):
 
         mock_get.assert_called_once_with('fgdsb')
         self.assertTrue(dup)
+
+    # @gen_test
+    # def test_like_title(self):
+    #     user = yield UserService().create_with_entity(self.fixture_with_new_uuid('user'))
+    #     yield UserService().like_title(user.uuid, '210eb8b3-9b82-4762-add9-0727dc2bcc99', False)

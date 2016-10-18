@@ -10,9 +10,9 @@ class BaseService(object):
 
     @coroutine
     def get_all(self):
-        star = yield self.store.get_all()
+        entity = yield self.store.get_all()
         logger.info(dict(method='get_all'))
-        raise Return(star)
+        raise Return(entity)
 
     @coroutine
     def handle_added(self, star):
@@ -48,7 +48,7 @@ class BaseService(object):
 
         star = yield self.store.get(uuid)
         if not star:
-            log_info.update({'error': 'star not found'})
+            log_info.update({'error': 'entity not found'})
             logger.exception(log_info)
             raise ResourceNotFoundError(log_info.get('error'))
 
