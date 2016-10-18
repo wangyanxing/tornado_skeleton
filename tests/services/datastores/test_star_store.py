@@ -1,6 +1,5 @@
 import uuid
 
-from bootcamp.models.star import Star
 from bootcamp.services.datastores.star_store import StarStore
 from tests.base_test import BaseTestCase
 from tornado.testing import gen_test
@@ -25,11 +24,8 @@ class TestStarStore(BaseTestCase):
 
     @gen_test
     def test_create_from_entity(self):
-        star_entity = Star(
-            raw_name='test',
-            hiragana='test2',
-            english_id='test_2',
-        )
+        star_entity = self.install_fixture('star')
+
         new_star = yield StarStore().create_from_entity(star_entity)
         self.assertEquals(new_star.raw_name, star_entity.raw_name)
 

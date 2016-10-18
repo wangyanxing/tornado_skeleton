@@ -1,0 +1,6 @@
+star:
+  model: Star
+  fields:
+    raw_name: 'Test Star'
+    hiragana: '我'
+    english_id: 'test_star'

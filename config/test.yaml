@@ -16,3 +16,6 @@ database:
       dbname: bootcamp_test
       user: bootcamp_test
       port: 5432
+
+fixtures:
+  tests/data/fixtures.yaml
