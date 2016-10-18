@@ -9,6 +9,6 @@ class StarStore(BaseStore):
         super(StarStore, self).__init__(Star)
 
     @coroutine
-    def get_by_name(self, raw_name):
-        query = self.model_class.query().filter(self.model_class.raw_name == raw_name)
+    def get_by_name(self, name):
+        query = self.model_class.query().filter(self.model_class.name == name)
         return query.first()

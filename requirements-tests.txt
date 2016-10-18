@@ -8,3 +8,4 @@ flake8==2.5.4
 coverage==4.0.2
 codeclimate-test-reporter
 charlatan==0.4.6
+mock==1.0.1

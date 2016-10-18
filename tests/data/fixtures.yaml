@@ -2,7 +2,7 @@ star:
   model: Star
   fields:
     uuid: '5b89bbf4-49a7-4ba1-ad1b-c2936861a527'
-    raw_name: 'Test Star'
+    name: 'Test Star'
     hiragana: '我'
     english_id: 'test_star'
 

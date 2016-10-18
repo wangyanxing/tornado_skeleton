@@ -11,13 +11,13 @@ class StarService(BaseService):
         self.store = StarStore()
 
     @coroutine
-    def get_by_name(self, star_raw_name):
+    def get_by_name(self, star_name):
         log_info = dict(
-            raw_name=star_raw_name,
+            name=star_name,
             method='get_by_name',
         )
 
-        star = yield self.store.get_by_name(star_raw_name)
+        star = yield self.store.get_by_name(star_name)
         if not star:
             log_info.update({'result': 'star not found'})
             logger.info(log_info)

@@ -16,7 +16,7 @@ class TestStar(BaseTestCase):
             'uuid': '5b89bbf4-49a7-4ba1-ad1b-c2936861a527',
             'hiragana': u'我',
             'englishId': 'test_star',
-            'rawName': 'Test Star',
+            'name': 'Test Star',
             'pronunciation': None,
         }
         assert self.star.to_dict() == expected
