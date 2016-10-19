@@ -86,8 +86,8 @@ CREATE TABLE users (
     user_name character varying(20) NOT NULL,
     password character varying(128) NOT NULL,
     email character varying(320) NOT NULL,
-    liked_titles JSON,
-    play_times JSON
+    liked_titles JSON NOT NULL,
+    play_times JSON NOT NULL
 );
 
 CREATE SEQUENCE user_id_seq

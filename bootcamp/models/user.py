@@ -1,5 +1,6 @@
 import uuid
 
+from bootcamp.lib.json_utils import json_to_strings
 from bootcamp.models.base import Model
 from sqlalchemy import (
     Column,
@@ -16,9 +17,9 @@ class User(Model):
     uuid = Column(UUID, default=lambda: str(uuid.uuid4()), nullable=False)  # pragma: no cover
     user_name = Column(String(20), nullable=False)
     password = Column(String(128), nullable=False)
-    email = Column(String(320))
-    liked_titles = Column(JSON)  # key UUID, value Boolean
-    play_times = Column(JSON)  # Key UUID, value Integer
+    email = Column(String(320), nullable=False)
+    liked_titles = Column(JSON, default={}, nullable=False)  # key UUID, value Boolean
+    play_times = Column(JSON, default={}, nullable=False)  # Key UUID, value Integer
 
     def to_dict(self):
         return {
@@ -26,6 +27,6 @@ class User(Model):
             'userName': self.user_name,
             'password': self.password,
             'email': self.email,
-            'likedTitles': self.liked_titles,
-            'playTimes': self.play_times,
+            'likedTitles': json_to_strings(self.liked_titles),
+            'playTimes': json_to_strings(self.play_times),
         }

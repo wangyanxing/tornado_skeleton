@@ -28,3 +28,9 @@ class TestUserStore(BaseTestCase):
 
         user = yield UserStore().get_by_name(new_user.user_name)
         self.assertEquals(user.uuid, new_user.uuid)
+
+    @gen_test
+    def test_json_column(self):
+        user_entity = self.fixture_with_new_uuid('user')
+        new_user = yield UserStore().create_from_entity(user_entity)
+        self.assertTrue(new_user.liked_titles['210eb8b3-9b82-4762-add9-0727dc2bcc99'])

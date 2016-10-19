@@ -22,3 +22,11 @@ class BaseStore(object):
     def get_all(self):
         query = self.model_class.query()
         return query.all()
+
+    @coroutine
+    def update(self, uuid, update_dict):
+        model = self.model_class.get(uuid)
+        model = model.update(update_dict)
+        model.persist()
+        get_db_session().commit()
+        return model
