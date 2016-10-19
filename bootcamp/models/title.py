@@ -43,4 +43,5 @@ class Title(Model):
             'rate': self.rate,
             'length': self.length,
             'publishedDate': str(self.published_date),
+            'tags': self.tags,
         }
