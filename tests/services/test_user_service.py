@@ -44,3 +44,18 @@ class TestUserService(BaseTestCase):
 
         user = yield UserService().get(user.uuid)
         self.assertFalse(user.liked_titles[title_uuid])
+
+    @gen_test
+    def test_like_star(self):
+        user = yield UserService().create_with_entity(self.fixture_with_new_uuid('user'))
+        star_uuid = '24c8cf4b-b551-4bef-95fe-30e2a6749929'
+        self.assertTrue(user.liked_stars[star_uuid])
+
+        yield UserService().like_star(
+            user.uuid,
+            star_uuid,
+            False,
+        )
+
+        user = yield UserService().get(user.uuid)
+        self.assertFalse(user.liked_stars[star_uuid])

@@ -19,6 +19,7 @@ class User(Model):
     password = Column(String(128), nullable=False)
     email = Column(String(320), nullable=False)
     liked_titles = Column(JSON, default={}, nullable=False)  # key UUID, value Boolean
+    liked_stars = Column(JSON, default={}, nullable=False)  # Key UUID, value Boolean
     play_times = Column(JSON, default={}, nullable=False)  # Key UUID, value Integer
 
     def to_dict(self):
@@ -28,5 +29,6 @@ class User(Model):
             'password': self.password,
             'email': self.email,
             'likedTitles': json_to_strings(self.liked_titles),
+            'likedStars': json_to_strings(self.liked_stars),
             'playTimes': json_to_strings(self.play_times),
         }

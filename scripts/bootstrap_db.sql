@@ -87,6 +87,7 @@ CREATE TABLE users (
     password character varying(128) NOT NULL,
     email character varying(320) NOT NULL,
     liked_titles JSON NOT NULL,
+    liked_stars JSON NOT NULL,
     play_times JSON NOT NULL
 );
 

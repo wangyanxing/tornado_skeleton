@@ -43,3 +43,20 @@ class UserService(BaseService):
             method='like_title',
         ))
         raise Return()
+
+    @coroutine
+    def like_star(self, user_uuid, star_uuid, like):
+        user_uuid = is_valid_uuid_string(user_uuid)
+        star_uuid = is_valid_uuid_string(star_uuid)
+
+        update_dict = {'liked_stars': {}}
+        update_dict['liked_stars'][star_uuid] = like
+        self.store.update(user_uuid, update_dict)
+
+        logger.info(dict(
+            user_uuid=user_uuid,
+            star_uuid=star_uuid,
+            like=like,
+            method='like_star',
+        ))
+        raise Return()
