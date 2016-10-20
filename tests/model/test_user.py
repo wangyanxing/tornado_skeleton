@@ -19,6 +19,9 @@ class TestUser(BaseTestCase):
             'likedTitles': {
                 '210eb8b3-9b82-4762-add9-0727dc2bcc99': True
             },
+            'likedStars': {
+              '24c8cf4b-b551-4bef-95fe-30e2a6749929': True
+            },
             'playTimes': {
                 '210eb8b3-9b82-4762-add9-0727dc2bcc99': 2
             },
