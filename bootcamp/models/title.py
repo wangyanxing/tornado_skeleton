@@ -28,7 +28,7 @@ class Title(Model):
     rate = Column(Numeric)
     length = Column(Integer)
     published_date = Column(DateTime)
-    tags = Column(ARRAY(UUID))
+    tags = Column(ARRAY(UUID), default=[], nullable=False)
 
     def to_dict(self):
         return {

@@ -28,7 +28,7 @@ class TitleService(BaseService):
         raise Return(title is not None)
 
     @coroutine
-    def add_tag(self, title_uuid, tag_uuid, add):
+    def add_tag(self, title_uuid, tag_uuid, add=True):
         title_uuid = is_valid_uuid_string(title_uuid)
         tag_uuid = is_valid_uuid_string(tag_uuid)
 
