@@ -17,4 +17,5 @@ def init_test():
 
 @pytest.fixture
 def app():
+    print 'making app'
     return make_app()

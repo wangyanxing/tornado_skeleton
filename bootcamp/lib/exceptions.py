@@ -1,6 +1,10 @@
 from __future__ import absolute_import
 
 
+class NoContextError(Exception):
+    pass
+
+
 class BaseServiceError(Exception):
     code = 400
 

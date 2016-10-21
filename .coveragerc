@@ -2,7 +2,7 @@
 branch = True
 source = bootcamp
 parallel = true
-omit = tests/*, bootcamp/bootcamp.py
+omit = tests/*, bootcamp/bootcamp.py, bootcamp/handlers/base.py
 
 [report]
 show_missing = true

@@ -7,9 +7,13 @@ from web.routes import get_routes
 
 logger = logging.getLogger(__name__)
 
+settings = {
+    'cookie_secret': '__TODO:_GENERATE_YOUR_OWN_RANDOM_VALUE_HERE__',
+}
+
 
 def make_app():
-    return web.Application(get_routes())
+    return web.Application(get_routes(), **settings)
 
 
 def serve_web():
