@@ -30,3 +30,8 @@ class TestStarStore(BaseTestCase):
 
         star = yield StarStore().get(new_star.uuid)
         self.assertEquals(star.name, star_entity.name)
+
+    @gen_test
+    def test_get_all_by_uuids(self):
+        stars = yield StarStore().get_all_by_uuids([])
+        self.assertEquals(stars, [])

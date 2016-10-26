@@ -46,14 +46,14 @@ class BaseService(object):
             method='get',
         )
 
-        star = yield self.store.get(uuid)
-        if not star:
+        entity = yield self.store.get(uuid)
+        if not entity:
             log_info.update({'error': 'entity not found'})
             logger.exception(log_info)
             raise ResourceNotFoundError(log_info.get('error'))
 
         logger.info(log_info)
-        raise Return(star)
+        raise Return(entity)
 
     @coroutine
     def check_duplicates(self, entity):

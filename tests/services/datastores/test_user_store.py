@@ -34,3 +34,8 @@ class TestUserStore(BaseTestCase):
         user_entity = self.fixture_with_new_uuid('user')
         new_user = yield UserStore().create_from_entity(user_entity)
         self.assertTrue(new_user.liked_titles['210eb8b3-9b82-4762-add9-0727dc2bcc99'])
+
+    @gen_test
+    def test_get_all_by_uuids(self):
+        users = yield UserStore().get_all_by_uuids([])
+        self.assertEquals(users, [])

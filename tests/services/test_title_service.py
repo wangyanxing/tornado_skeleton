@@ -1,3 +1,6 @@
+from bootcamp.lib.exceptions import ResourceNotFoundError
+from bootcamp.models.title import Title
+from bootcamp.services.datastores.base_store import BaseStore
 from bootcamp.services.datastores.title_store import TitleStore
 from bootcamp.services.title_service import TitleService
 import mock
@@ -101,3 +104,49 @@ class TestTitleService(BaseTestCase):
 
         title = yield TitleService().get(title.uuid)
         self.assertEquals(len(title.tags), 2)
+
+    @mock.patch.object(BaseStore, 'get')
+    @mock.patch.object(BaseStore, 'get_all_by_uuids')
+    @gen_test
+    def test_get_all_by_title(self, mock_get_all_by_uuids, mock_get):
+        fake_uuid = 'c736b780-11b6-4190-8529-4d89504b76a0'
+        fake_title = Title(
+            tags=[
+                'c736b780-11b6-4190-8529-4d89504b76a0',
+                'efc5907c-7316-4a36-a910-044c18e39d10',
+            ],
+        )
+
+        fake_tag_docs = mock.Mock()
+        mock_get.return_value = gen.maybe_future(fake_title)
+        mock_get_all_by_uuids.return_value = gen.maybe_future(fake_tag_docs)
+
+        tag_docs = yield TitleService().get_tags_by_title(fake_uuid)
+
+        mock_get.assert_called_once_with(fake_uuid)
+        self.assertEquals(tag_docs, fake_tag_docs)
+
+    @mock.patch.object(BaseStore, 'get')
+    @gen_test
+    def test_get_tags_by_title_not_found(self, mock_get):
+        mock_get.return_value = gen.maybe_future(None)
+
+        fake_uuid = 'c736b780-11b6-4190-8529-4d89504b76a0'
+
+        with self.assertRaises(ResourceNotFoundError):
+            yield TitleService().get_tags_by_title(fake_uuid)
+
+        mock_get.assert_called_once_with(fake_uuid)
+
+    @mock.patch.object(TitleStore, 'get_all_by_tag')
+    @gen_test
+    def test_get_all_by_tag(self, mock_get_all_by_tag):
+        fake_uuid = 'c736b780-11b6-4190-8529-4d89504b76a0'
+
+        fake_titles = mock.Mock()
+        mock_get_all_by_tag.return_value = gen.maybe_future(fake_titles)
+
+        titles = yield TitleService().get_all_by_tag(fake_uuid)
+
+        mock_get_all_by_tag.assert_called_once_with(fake_uuid)
+        self.assertEquals(titles, fake_titles)
