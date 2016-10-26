@@ -76,3 +76,16 @@ class TitleService(BaseService):
         tags = yield self.tag_store.get_all_by_uuids(tag_list)
         logger.info(log_info)
         raise Return(tags)
+
+    @coroutine
+    def get_all_by_tag(self, tag_uuid):
+        tag_uuid = is_valid_uuid_string(tag_uuid)
+
+        log_info = dict(
+            tag_uuid=tag_uuid,
+            method='get_all_by_tag',
+        )
+
+        titles = yield self.store.get_all_by_tag(tag_uuid)
+        logger.info(log_info)
+        raise Return(titles)

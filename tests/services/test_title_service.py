@@ -105,7 +105,7 @@ class TestTitleService(BaseTestCase):
         title = yield TitleService().get(title.uuid)
         self.assertEquals(len(title.tags), 2)
 
-    @mock.patch.object(TitleStore, 'get')
+    @mock.patch.object(BaseStore, 'get')
     @mock.patch.object(BaseStore, 'get_all_by_uuids')
     @gen_test
     def test_get_all_by_title(self, mock_get_all_by_uuids, mock_get):
@@ -137,3 +137,16 @@ class TestTitleService(BaseTestCase):
             yield TitleService().get_tags_by_title(fake_uuid)
 
         mock_get.assert_called_once_with(fake_uuid)
+
+    @mock.patch.object(TitleStore, 'get_all_by_tag')
+    @gen_test
+    def test_get_all_by_tag(self, mock_get_all_by_tag):
+        fake_uuid = 'c736b780-11b6-4190-8529-4d89504b76a0'
+
+        fake_titles = mock.Mock()
+        mock_get_all_by_tag.return_value = gen.maybe_future(fake_titles)
+
+        titles = yield TitleService().get_all_by_tag(fake_uuid)
+
+        mock_get_all_by_tag.assert_called_once_with(fake_uuid)
+        self.assertEquals(titles, fake_titles)

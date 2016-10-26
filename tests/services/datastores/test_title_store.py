@@ -40,3 +40,9 @@ class TestTitleStore(BaseTestCase):
     def test_get_all_by_uuids(self):
         titles = yield TitleStore().get_all_by_uuids([])
         self.assertEquals(titles, [])
+
+    @gen_test
+    def test_get_all_by_tag(self):
+        fake_uuid = uuid.uuid4()
+        titles = yield TitleStore().get_all_by_tag(str(fake_uuid))
+        self.assertEquals(titles, [])
