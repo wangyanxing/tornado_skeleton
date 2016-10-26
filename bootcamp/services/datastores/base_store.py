@@ -30,3 +30,8 @@ class BaseStore(object):
         model.persist()
         get_db_session().commit()
         return model
+
+    @coroutine
+    def get_all_by_uuids(self, uuids):
+        query = self.model_class.query().filter(self.model_class.uuid.in_(uuids))
+        return query.all()
