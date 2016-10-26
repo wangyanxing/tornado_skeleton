@@ -1,6 +1,8 @@
+from bootcamp.lib.exceptions import ResourceNotFoundError
 from bootcamp.lib.validation import is_valid_uuid_string
 from bootcamp.services import logger
 from bootcamp.services.base_service import BaseService
+from bootcamp.services.datastores.title_store import TitleStore
 from bootcamp.services.datastores.user_store import UserStore
 
 from tornado.gen import coroutine, Return
@@ -10,6 +12,7 @@ class UserService(BaseService):
     def __init__(self):
         super(UserService, self).__init__()
         self.store = UserStore()
+        self.title_store = TitleStore()
 
     @coroutine
     def get_by_name(self, user_name):
@@ -60,3 +63,25 @@ class UserService(BaseService):
             method='like_star',
         ))
         raise Return()
+
+    @coroutine
+    def get_all_liked_titles(self, user_uuid):
+        log_info = dict(
+            user_uuid=user_uuid,
+            method='get_all_liked_titles',
+        )
+
+        user_uuid = is_valid_uuid_string(user_uuid)
+
+        user = yield self.store.get(user_uuid)
+        if not user:
+            log_info.update({'error': 'user not found'})
+            logger.exception(log_info)
+            raise ResourceNotFoundError(log_info.get('error'))
+
+        title_uuids = list(user.liked_titles)
+
+        titles = yield self.title_store.get_all_by_uuids(title_uuids)
+
+        logger.info(log_info)
+        raise Return(titles)

@@ -124,6 +124,11 @@ class TestTitleService(BaseTestCase):
         tag_docs = yield TitleService().get_tags_by_title(fake_uuid)
 
         mock_get.assert_called_once_with(fake_uuid)
+        mock_get_all_by_uuids.assert_called_once_with([
+            'c736b780-11b6-4190-8529-4d89504b76a0',
+            'efc5907c-7316-4a36-a910-044c18e39d10',
+        ])
+
         self.assertEquals(tag_docs, fake_tag_docs)
 
     @mock.patch.object(BaseStore, 'get')
