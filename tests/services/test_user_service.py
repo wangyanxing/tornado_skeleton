@@ -95,3 +95,36 @@ class TestUserService(BaseTestCase):
             yield UserService().get_all_liked_titles(fake_uuid)
 
         mock_get.assert_called_once_with(fake_uuid)
+
+    @mock.patch.object(BaseStore, 'get')
+    @mock.patch.object(BaseStore, 'get_all_by_uuids')
+    @gen_test
+    def test_get_all_liked_stars(self, mock_get_all_by_uuids, mock_get):
+        fake_uuid = 'c736b780-11b6-4190-8529-4d89504b76a0'
+        fake_user = User(
+            liked_stars={
+              '210eb8b3-9b82-4762-add9-0727dc2bcc99': True
+            }
+        )
+
+        fake_stars = mock.Mock()
+        mock_get.return_value = gen.maybe_future(fake_user)
+        mock_get_all_by_uuids.return_value = gen.maybe_future(fake_stars)
+
+        stars = yield UserService().get_all_liked_stars(fake_uuid)
+
+        mock_get.assert_called_once_with(fake_uuid)
+        mock_get_all_by_uuids.assert_called_once_with(['210eb8b3-9b82-4762-add9-0727dc2bcc99'])
+        self.assertEquals(stars, fake_stars)
+
+    @mock.patch.object(BaseStore, 'get')
+    @gen_test
+    def test_get_all_liked_stars_user_not_found(self, mock_get):
+        mock_get.return_value = gen.maybe_future(None)
+
+        fake_uuid = 'c736b780-11b6-4190-8529-4d89504b76a0'
+
+        with self.assertRaises(ResourceNotFoundError):
+            yield UserService().get_all_liked_stars(fake_uuid)
+
+        mock_get.assert_called_once_with(fake_uuid)

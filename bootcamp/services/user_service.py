@@ -2,6 +2,7 @@ from bootcamp.lib.exceptions import ResourceNotFoundError
 from bootcamp.lib.validation import is_valid_uuid_string
 from bootcamp.services import logger
 from bootcamp.services.base_service import BaseService
+from bootcamp.services.datastores.star_store import StarStore
 from bootcamp.services.datastores.title_store import TitleStore
 from bootcamp.services.datastores.user_store import UserStore
 
@@ -13,6 +14,7 @@ class UserService(BaseService):
         super(UserService, self).__init__()
         self.store = UserStore()
         self.title_store = TitleStore()
+        self.star_store = StarStore()
 
     @coroutine
     def get_by_name(self, user_name):
@@ -85,3 +87,25 @@ class UserService(BaseService):
 
         logger.info(log_info)
         raise Return(titles)
+
+    @coroutine
+    def get_all_liked_stars(self, user_uuid):
+        log_info = dict(
+            user_uuid=user_uuid,
+            method='get_all_liked_stars',
+        )
+
+        user_uuid = is_valid_uuid_string(user_uuid)
+
+        user = yield self.store.get(user_uuid)
+        if not user:
+            log_info.update({'error': 'user not found'})
+            logger.exception(log_info)
+            raise ResourceNotFoundError(log_info.get('error'))
+
+        star_uuids = list(user.liked_stars)
+
+        stars = yield self.star_store.get_all_by_uuids(star_uuids)
+
+        logger.info(log_info)
+        raise Return(stars)
