@@ -6,6 +6,7 @@ from ..handlers.health import HealthHandler
 from ..handlers.index import IndexHandler
 from ..handlers.stars import StarsHandler
 from ..handlers.titles import TitlesHandler
+from ..handlers.user import UserHandler
 from ..handlers.users import UsersHandler
 
 
@@ -18,4 +19,6 @@ def get_routes():
         (r'/add_user', AddUserHandler),
         (r'/users', UsersHandler),
         (r'/stars', StarsHandler),
+        (r'/api/users', UsersHandler),
+        (r'/api/users/[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{3}-[a-z0-9]{3}-[a-z0-9]{12}', UserHandler),
     ]
