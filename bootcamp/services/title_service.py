@@ -89,3 +89,9 @@ class TitleService(BaseService):
         titles = yield self.store.get_all_by_tag(tag_uuid)
         logger.info(log_info)
         raise Return(titles)
+
+    @coroutine
+    def get_recentlly_added_titles(self, n):
+        titles = yield self.store.get_latest_created(n)
+        logger.info(dict(count=n, method='get_recentlly_added_titles'))
+        raise Return(titles)

@@ -39,3 +39,8 @@ class TestUserStore(BaseTestCase):
     def test_get_all_by_uuids(self):
         users = yield UserStore().get_all_by_uuids([])
         self.assertEquals(users, [])
+
+    @gen_test
+    def test_get_latest_created(self):
+        users = yield UserStore().get_latest_created(5)
+        self.assertEquals(users, [])

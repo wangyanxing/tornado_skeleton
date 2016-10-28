@@ -1,4 +1,5 @@
 from bootcamp.lib.database import get_db_session
+from sqlalchemy import desc
 from tornado.gen import coroutine
 
 
@@ -34,4 +35,9 @@ class BaseStore(object):
     @coroutine
     def get_all_by_uuids(self, uuids):
         query = self.model_class.query().filter(self.model_class.uuid.in_(uuids))
+        return query.all()
+
+    @coroutine
+    def get_latest_created(self, n):
+        query = self.model_class.query().order_by(desc(self.model_class.created_at)).limit(n)
         return query.all()
