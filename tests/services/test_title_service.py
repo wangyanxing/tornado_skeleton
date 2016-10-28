@@ -155,3 +155,15 @@ class TestTitleService(BaseTestCase):
 
         mock_get_all_by_tag.assert_called_once_with(fake_uuid)
         self.assertEquals(titles, fake_titles)
+
+    @mock.patch.object(BaseStore, 'get_latest_created')
+    @gen_test
+    def test_get_recentlly_added_titles(self, mock_get):
+        fake_titles = [1, 2, 3]
+        n = len(fake_titles)
+        mock_get.return_value = gen.maybe_future(fake_titles)
+        titles = yield TitleService().get_recentlly_added_titles(n)
+        mock_get.assert_called_once_with(n)
+
+        self.assertEquals(len(titles), n)
+        self.assertEquals(titles, fake_titles)

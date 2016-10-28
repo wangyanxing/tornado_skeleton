@@ -35,3 +35,8 @@ class TestTagStore(BaseTestCase):
     def test_get_all_by_uuids(self):
         tags = yield TagStore().get_all_by_uuids([])
         self.assertEquals(tags, [])
+
+    @gen_test
+    def test_get_latest_created(self):
+        tags = yield TagStore().get_latest_created(5)
+        self.assertEquals(tags, [])
