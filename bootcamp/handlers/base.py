@@ -33,11 +33,11 @@ class BaseHandler(RequestHandler):
 
     @property
     def xsrf_token(self):
-        if not hasattr(self, "_xsrf_token"):
-            token = self.get_cookie("_xsrf")
+        if not hasattr(self, '_xsrf_token'):
+            token = self.get_cookie('_xsrf')
             if not token:
                 token = binascii.b2a_hex(uuid.uuid4().bytes)
-                self.set_cookie("_xsrf", token, expires_days=USER_COOKIE_EXPIRES_DAYS)
+                self.set_cookie('_xsrf', token, expires_days=USER_COOKIE_EXPIRES_DAYS)
             self._xsrf_token = token
         return self._xsrf_token
 
@@ -71,8 +71,8 @@ class BaseHandler(RequestHandler):
         return None
 
     def set_user_cookie(self, user_cookie_dict):
-        expires_days = None if user_cookie_dict.get(COOKIE_KEY_IS_SESSION,
-                                                    False) else USER_COOKIE_EXPIRES_DAYS
+        expires_days = None if user_cookie_dict.get(
+            COOKIE_KEY_IS_SESSION, False) else USER_COOKIE_EXPIRES_DAYS
         self.set_secure_cookie(
             USER_COOKIE_NAME,
             json.dumps(user_cookie_dict),

@@ -9,6 +9,7 @@ logger = logging.getLogger(__name__)
 
 settings = {
     'cookie_secret': '__TODO:_GENERATE_YOUR_OWN_RANDOM_VALUE_HERE__',
+    'xsrf_cookies': False,
 }
 
 
