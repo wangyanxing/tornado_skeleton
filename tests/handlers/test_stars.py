@@ -1,4 +1,5 @@
 import httplib
+import json
 
 from bootcamp.services.star_service import StarService
 from doubles import allow_constructor, expect, patch_class
@@ -20,5 +21,6 @@ def test_stars(http_client, base_url):
     expect(mock_service).get_all.and_return_future([])
 
     response = yield http_client.fetch(base_url + '/stars')
-    assert response.body == 'Number of stars: 0'
+    data = json.loads(response.body)
+    assert len(data) == 0
     assert response.code == httplib.OK
