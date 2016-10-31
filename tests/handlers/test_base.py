@@ -1,8 +1,12 @@
 import binascii
 
+
 from bootcamp.handlers.base import BaseHandler
+from bootcamp.services.datastores.user_store import UserStore
+import jwt
 import mock
 
+from tornado import gen
 from tornado.test.web_test import WebTestCase
 
 
@@ -55,9 +59,6 @@ class CookieTest(WebTestCase):
         response = self.fetch('/get', headers={'Cookie': 'foo="bar"'})
         self.assertEqual(response.body, b'bar')
 
-        response = self.fetch('/get', headers={'Cookie': '/=exception;'})
-        self.assertEqual(response.body, b'default')
-
     @mock.patch.object(binascii, 'b2a_hex')
     def test_xsrf_token(self, mock_hex):
         mock_hex.return_value = 'foo'
@@ -70,6 +71,14 @@ class CookieTest(WebTestCase):
         self.assertIn('httponly;', cookie)
         self.assertIn('user="', cookie)
 
-    def test_get_user_cookie(self):
+    @mock.patch.object(UserStore, 'get')
+    @mock.patch.object(jwt, 'decode')
+    def test_get_user_cookie(self, mock_decode, mock_get):
+        mock_decode.return_value = {
+            'userName': 'fg',
+            'uuid': '19836e2f-0f90-4644-a985-41367fde00e3',
+        }
+        mock_get.return_value = gen.maybe_future(mock.Mock())
         response = self.fetch('/get_user_cookie', headers={'Cookie': 'user=fg'})
-        self.assertEqual(response.body, 'None')
+        self.assertEqual(response.body,
+                         "{'userName': 'fg', 'uuid': '19836e2f-0f90-4644-a985-41367fde00e3'}")

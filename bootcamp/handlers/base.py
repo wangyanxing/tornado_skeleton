@@ -1,4 +1,5 @@
 import binascii
+import Cookie
 import json
 import uuid
 
@@ -6,11 +7,12 @@ from bootcamp.handlers import logger
 from bootcamp.lib.constants import USER_COOKIE_EXPIRES_DAYS, USER_COOKIE_NAME
 from bootcamp.lib.context_local import ContextLocal
 from bootcamp.services.user_service import UserService
+import jwt
 from tornado import stack_context
 from tornado.gen import coroutine, engine, Return
 from tornado.web import RequestHandler
 
-COOKIE_KEY_USER_UUID = 'user_uuid'
+COOKIE_KEY_USER_UUID = 'uuid'
 COOKIE_KEY_IS_SESSION = 'is_session_cookie'
 COOKIE_HTTP_HEADER = 'Cookie'
 
@@ -61,13 +63,18 @@ class BaseHandler(RequestHandler):
             cookie_header = self.request.headers.get(COOKIE_HTTP_HEADER, None)
             if cookie_header is None:
                 logger.warning('Missing cookie in HTTP header')
-            elif USER_COOKIE_NAME not in cookie_header:
-                logger.info('HTTP Cookie header exists, but does not contain a user cookie: %s' %
-                            cookie_header)
             else:
-                logger.warning(
-                    'User cookie exists in HTTP cookie header, but could not be decoded: %s' %
-                    cookie_header)
+                cookie = Cookie.SimpleCookie(cookie_header)
+                token = cookie.get(USER_COOKIE_NAME)
+                if not token:
+                    logger.info(
+                        'HTTP Cookie header exists, but does not contain a user cookie: %s' %
+                        cookie_header)
+                    return None
+
+                user_dict = jwt.decode(token.value, 'secret')
+                logger.info('Token found: %s' % json.dumps(user_dict))
+                return user_dict
         return None
 
     def set_user_cookie(self, user_cookie_dict):
@@ -103,15 +110,16 @@ class BaseHandler(RequestHandler):
     def _execute(self, transforms, *args, **kwargs):
         @engine
         def _execute_impl():
-            # user_cookie_dict, user = yield self.get_user_from_cookie()
-            # if user is not None:
-            #     self.login_user(user, user_cookie_dict)
+            user_cookie_dict, user = yield self.get_user_from_cookie()
+            if user is not None:
+                self.login_user(user, user_cookie_dict)
             super(BaseHandler, self)._execute(transforms, *args, **kwargs)
 
         with stack_context.StackContext(BaseContext(self.request)):
             _execute_impl()
 
     def login_user(self, user, user_cookie_dict):
+        logger.info('Logging in user: %s' % user.uuid)
         self._current_user = user
         self.set_user_cookie(user_cookie_dict)
 
