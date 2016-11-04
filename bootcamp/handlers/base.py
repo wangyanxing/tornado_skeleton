@@ -23,8 +23,6 @@ class BaseContext(ContextLocal):
 
 
 class BaseHandler(RequestHandler):
-    SUPPORTED_METHODS = ("CONNECT", "GET", "HEAD", "POST", "DELETE", "PATCH", "PUT", "OPTIONS")
-
     def data_received(self, chunk):
         pass
 
