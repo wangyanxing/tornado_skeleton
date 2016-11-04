@@ -2,6 +2,7 @@ from __future__ import absolute_import
 
 from ..handlers.add_title import AddTitleHandler
 from ..handlers.add_user import AddUserHandler
+from ..handlers.auth.login import LoginHandler
 from ..handlers.health import HealthHandler
 from ..handlers.index import IndexHandler
 from ..handlers.stars import StarsHandler
@@ -21,4 +22,5 @@ def get_routes():
         (r'/stars', StarsHandler),
         (r'/api/users', UsersHandler),
         (r'/api/users/([a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12})', UserHandler),
+        (r'/auth/login', LoginHandler),
     ]
