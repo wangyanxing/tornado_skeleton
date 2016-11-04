@@ -1,7 +1,5 @@
 from __future__ import absolute_import
 
-import json
-
 from bootcamp.lib.exceptions import EntityAlreadyExistsError
 from bootcamp.models.user import User
 from bootcamp.services.user_service import UserService
@@ -16,7 +14,7 @@ class UsersHandler(BaseHandler):
     def get(self):
         service = UserService()
         users = yield service.get_all()
-        self.write('{' + '"users": {}'.format(json.dumps([user.to_dict() for user in users])) + '}')
+        self.write({"status": "ok", "users": [user.to_dict() for user in users]})
 
     @coroutine
     def post(self):
@@ -33,6 +31,6 @@ class UsersHandler(BaseHandler):
 
         try:
             user = yield service.create_with_entity(user)
-            self.write('Added {}'.format(user.uuid))
+            self.write({"status": "ok", "uuid": user.uuid})
         except EntityAlreadyExistsError:
-            self.write('User name {} exist.'.format(user_name))
+            self.write({"status": "failed", "errorMessage": "User name {} exist.".format(user_name)})

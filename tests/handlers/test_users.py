@@ -22,7 +22,7 @@ def test_users(http_client, base_url):
     expect(mock_service).get_all.and_return_future([])
 
     response = yield http_client.fetch(base_url + '/api/users')
-    assert response.body == '{"users": []}'
+    assert response.body == '{"status": "ok", "users": []}'
     assert response.code == httplib.OK
 
 
@@ -37,7 +37,7 @@ def test_create_user(http_client, base_url):
     body = r'user_name=fgdsb789&password=123&email=fgasdf&btn_submit=Submit'
     response = yield http_client.fetch(base_url + '/api/users', method='POST', body=body)
 
-    assert response.body == 'Added {}'.format(fake_uuid)
+    assert response.body == '{"status": "ok", "uuid": "' + fake_uuid + '"}'
     assert response.code == httplib.OK
 
 
@@ -50,5 +50,5 @@ def test_add_user_already_exists(http_client, base_url):
     body = r'user_name=fgdsb789&password=123&email=fgasdf&btn_submit=Submit'
     response = yield http_client.fetch(base_url + '/api/users', method='POST', body=body)
 
-    assert response.body == 'User name fgdsb789 exist.'
+    assert response.body == '{"status": "failed", "errorMessage": "User name fgdsb789 exist."}'
     assert response.code == httplib.OK

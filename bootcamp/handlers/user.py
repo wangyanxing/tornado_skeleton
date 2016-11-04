@@ -14,6 +14,6 @@ class UserHandler(BaseHandler):
         service = UserService()
         try:
             user = yield service.get(id)
-            self.write(user.to_dict())
+            self.write({'status': 'ok', 'result': user.to_dict()})
         except ResourceNotFoundError:
-            self.write('Not found')
+            self.write({"status": "failed", "errorMessage": "Not found."})
