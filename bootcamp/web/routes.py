@@ -20,5 +20,5 @@ def get_routes():
         (r'/users', UsersHandler),
         (r'/stars', StarsHandler),
         (r'/api/users', UsersHandler),
-        (r'/api/users/[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{3}-[a-z0-9]{3}-[a-z0-9]{12}', UserHandler),
+        (r'/api/users/([a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12})', UserHandler),
     ]
