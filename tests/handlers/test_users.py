@@ -1,7 +1,9 @@
 import httplib
 
+from bootcamp.lib.exceptions import EntityAlreadyExistsError
 from bootcamp.services.user_service import UserService
 from doubles import allow_constructor, expect, patch_class
+import mock
 import pytest
 
 
@@ -19,6 +21,34 @@ def test_users(http_client, base_url):
     mock_service = gen_mock_service()
     expect(mock_service).get_all.and_return_future([])
 
-    response = yield http_client.fetch(base_url + '/users')
-    assert response.body == 'Number of users: 0'
+    response = yield http_client.fetch(base_url + '/api/users')
+    assert response.body == '{"status": "ok", "users": []}'
+    assert response.code == httplib.OK
+
+
+@pytest.mark.gen_test
+def test_create_user(http_client, base_url):
+    fake_uuid = '05bf9bc2-a418-404b-9b15-c8670407a8bf'
+    mock_service = gen_mock_service()
+    expect(mock_service).create_with_entity.and_return_future(
+        mock.Mock(uuid=fake_uuid),
+    )
+
+    body = r'user_name=fgdsb789&password=123&email=fgasdf&btn_submit=Submit'
+    response = yield http_client.fetch(base_url + '/api/users', method='POST', body=body)
+
+    assert response.body == '{"status": "ok", "uuid": "' + fake_uuid + '"}'
+    assert response.code == httplib.OK
+
+
+@pytest.mark.gen_test
+def test_add_user_already_exists(http_client, base_url):
+    mock_service = gen_mock_service()
+    expect(mock_service).create_with_entity.and_raise(
+        EntityAlreadyExistsError,
+    )
+    body = r'user_name=fgdsb789&password=123&email=fgasdf&btn_submit=Submit'
+    response = yield http_client.fetch(base_url + '/api/users', method='POST', body=body)
+
+    assert response.body == '{"status": "failed", "errorMessage": "User name fgdsb789 exist."}'
     assert response.code == httplib.OK
