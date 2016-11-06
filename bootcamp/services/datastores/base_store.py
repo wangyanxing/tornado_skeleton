@@ -1,4 +1,5 @@
 from bootcamp.lib.database import get_db_session
+from bootcamp.lib.exceptions import ResourceNotFoundError
 from sqlalchemy import desc
 from tornado.gen import coroutine
 
@@ -27,6 +28,8 @@ class BaseStore(object):
     @coroutine
     def update(self, uuid, update_dict):
         model = self.model_class.get(uuid)
+        if not model:
+            raise ResourceNotFoundError('Not found')
         model = model.update(update_dict)
         model.persist()
         get_db_session().commit()

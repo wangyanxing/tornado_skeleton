@@ -8,7 +8,11 @@ from ..handlers.index import IndexHandler
 from ..handlers.stars import StarsHandler
 from ..handlers.titles import TitlesHandler
 from ..handlers.user import UserHandler
+from ..handlers.user_like_title import UserLikeTitleHandler
+from ..handlers.user_like_titles import UserLikeTitlesHandler
 from ..handlers.users import UsersHandler
+
+uuid_reg_str = r'([a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12})'
 
 
 def get_routes():
@@ -21,6 +25,8 @@ def get_routes():
         (r'/users', UsersHandler),
         (r'/stars', StarsHandler),
         (r'/api/users', UsersHandler),
-        (r'/api/users/([a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12})', UserHandler),
+        (r'/api/users/' + uuid_reg_str, UserHandler),
+        (r'/api/users/' + uuid_reg_str + r'/like_titles', UserLikeTitlesHandler),
+        (r'/api/users/' + uuid_reg_str + r'/like_titles/' + uuid_reg_str, UserLikeTitleHandler),
         (r'/auth/login', LoginHandler),
     ]
