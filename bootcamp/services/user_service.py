@@ -81,7 +81,10 @@ class UserService(BaseService):
             logger.exception(log_info)
             raise ResourceNotFoundError(log_info.get('error'))
 
-        title_uuids = list(user.liked_titles)
+        if not user.liked_titles:
+            title_uuids = []
+        else:
+            title_uuids = list(filter(lambda uuid: user.liked_titles[uuid], user.liked_titles))
 
         titles = yield self.title_store.get_all_by_uuids(title_uuids)
 
@@ -103,7 +106,10 @@ class UserService(BaseService):
             logger.exception(log_info)
             raise ResourceNotFoundError(log_info.get('error'))
 
-        star_uuids = list(user.liked_stars)
+        if not user.liked_stars:
+            star_uuids = []
+        else:
+            star_uuids = list(filter(lambda uuid: user.liked_stars[uuid], user.liked_stars))
 
         stars = yield self.star_store.get_all_by_uuids(star_uuids)
 

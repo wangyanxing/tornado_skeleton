@@ -1,6 +1,10 @@
 import uuid
 
+from bootcamp.lib.exceptions import ResourceNotFoundError
+from bootcamp.models.base import Base
 from bootcamp.services.datastores.star_store import StarStore
+
+import mock
 from tests.base_test import BaseTestCase
 from tornado.testing import gen_test
 
@@ -35,3 +39,15 @@ class TestStarStore(BaseTestCase):
     def test_get_all_by_uuids(self):
         stars = yield StarStore().get_all_by_uuids([])
         self.assertEquals(stars, [])
+
+    @mock.patch.object(Base, 'get')
+    @gen_test
+    def test_update_not_exists_entity(self, mock_get):
+        mock_get.return_value = None
+
+        fake_uuid = 'c736b780-11b6-4190-8529-4d89504b76a0'
+
+        with self.assertRaises(ResourceNotFoundError):
+            yield StarStore().update(fake_uuid, {})
+
+        mock_get.assert_called_once_with(fake_uuid)
