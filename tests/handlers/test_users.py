@@ -1,6 +1,9 @@
 import httplib
+import json
+import urllib
 
 from bootcamp.lib.exceptions import EntityAlreadyExistsError
+from bootcamp.models.user import User
 from bootcamp.services.user_service import UserService
 from doubles import allow_constructor, expect, patch_class
 import mock
@@ -23,6 +26,36 @@ def test_users(http_client, base_url):
 
     response = yield http_client.fetch(base_url + '/api/users')
     assert response.body == '{"status": "ok", "users": []}'
+    assert response.code == httplib.OK
+
+
+@pytest.mark.gen_test
+def test_get_user_by_name(http_client, base_url):
+    user_entity = User(
+            user_name='fgbyname',
+            password='fgdsb',
+            email='fgdsb@fgdsb'
+        )
+    user = yield UserService().create_with_entity(user_entity)
+
+    mock_service = gen_mock_service()
+    expect(mock_service).get_by_name.with_args(user.user_name).and_return_future(user)
+
+    response = yield http_client.fetch(base_url + '/api/users?user_name=' + user.user_name)
+
+    assert json.loads(response.body) == {"status": "ok", "user": user.to_dict()}
+    assert response.code == httplib.OK
+
+
+@pytest.mark.gen_test
+def test_get_user_by_name_not_existed(http_client, base_url):
+    fake_user_name = 'not found'
+    mock_service = gen_mock_service()
+    expect(mock_service).get_by_name.with_args(fake_user_name).and_return_future(None)
+
+    response = yield http_client.fetch(base_url + '/api/users?user_name=' + urllib.quote(fake_user_name))
+
+    assert response.body == '{"status": "failed", "errorMessage": "Not found."}'
     assert response.code == httplib.OK
 
 
