@@ -13,8 +13,7 @@ class UserLikeTitleHandler(BaseHandler):
     def get(self, user_uuid, title_uuid):
         service = UserService()
         try:
-            like = self.get_argument("like", True, True)
-            if like == 'y':
+            if self.get_argument("like", 'n', True) == 'y':
                 like = True
             else:
                 like = False
