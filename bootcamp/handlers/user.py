@@ -12,6 +12,9 @@ class UserHandler(BaseHandler):
     @coroutine
     def get(self, id):
         service = UserService()
+
+        self.set_header('Content-Type', 'application/json')
+
         try:
             user = yield service.get(id)
             self.write({'status': 'ok', 'result': user.to_dict()})

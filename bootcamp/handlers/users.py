@@ -16,6 +16,8 @@ class UsersHandler(BaseHandler):
     def get(self):
         service = UserService()
 
+        self.set_header('Content-Type', 'application/json')
+
         if not self.get_argument("user_name", None, True):
             users = yield service.get_all()
             self.write({"status": "ok", "users": [user.to_dict() for user in users]})
@@ -39,6 +41,8 @@ class UsersHandler(BaseHandler):
             email=email
         )
         service = UserService()
+
+        self.set_header('Content-Type', 'application/json')
 
         try:
             user = yield service.create_with_entity(user)
