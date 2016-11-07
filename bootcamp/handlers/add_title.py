@@ -12,7 +12,7 @@ from tornado.gen import coroutine
 class AddTitleHandler(BaseHandler):
     @coroutine
     def get(self):
-        title = Title(
+        title_entity = Title(
             title_id='ABC-123',
             title='test title 1',
             video_path='test',
@@ -24,7 +24,7 @@ class AddTitleHandler(BaseHandler):
         )
         service = TitleService()
         try:
-            title = yield service.create_with_entity(title)
+            title = yield service.create_with_entity(title_entity)
             self.write('Added {}'.format(title.uuid))
         except EntityAlreadyExistsError:
-            self.write('{} already exists'.format(title.title_id))
+            self.write('{} already exists'.format(title_entity.title_id))

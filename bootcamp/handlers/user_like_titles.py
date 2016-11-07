@@ -12,6 +12,9 @@ class UserLikeTitlesHandler(BaseHandler):
     @coroutine
     def get(self, user_uuid):
         service = UserService()
+
+        self.set_header('Content-Type', 'application/json')
+
         try:
             titles = yield service.get_all_liked_titles(user_uuid)
             self.write({"status": "ok", "titles": [title.to_dict() for title in titles]})

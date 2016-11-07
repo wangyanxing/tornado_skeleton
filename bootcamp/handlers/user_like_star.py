@@ -12,6 +12,9 @@ class UserLikeStarHandler(BaseHandler):
     @coroutine
     def get(self, user_uuid, star_uuid):
         service = UserService()
+
+        self.set_header('Content-Type', 'application/json')
+
         try:
             if self.get_argument("like", 'n', True) == 'y':
                 like = True

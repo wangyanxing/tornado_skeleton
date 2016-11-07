@@ -1,12 +1,16 @@
 from __future__ import absolute_import
 
 from ..handlers.add_star import AddStarHandler
+from ..handlers.add_tag import AddTagHandler
 from ..handlers.add_title import AddTitleHandler
 from ..handlers.add_user import AddUserHandler
 from ..handlers.auth.login import LoginHandler
 from ..handlers.health import HealthHandler
 from ..handlers.index import IndexHandler
+from ..handlers.star import StarHandler
 from ..handlers.stars import StarsHandler
+from ..handlers.tag import TagHandler
+from ..handlers.tags import TagsHandler
 from ..handlers.titles import TitlesHandler
 from ..handlers.user import UserHandler
 from ..handlers.user_like_star import UserLikeStarHandler
@@ -23,11 +27,15 @@ def get_routes():
         (r'/', IndexHandler),
         (r'/health', HealthHandler),
         (r'/add_star', AddStarHandler),
+        (r'/add_tag', AddTagHandler),
         (r'/add_title', AddTitleHandler),
         (r'/titles', TitlesHandler),
         (r'/add_user', AddUserHandler),
         (r'/users', UsersHandler),
-        (r'/stars', StarsHandler),
+        (r'/api/stars', StarsHandler),
+        (r'/api/stars/' + uuid_reg_str, StarHandler),
+        (r'/api/tags', TagsHandler),
+        (r'/api/tags/' + uuid_reg_str, TagHandler),
         (r'/api/users', UsersHandler),
         (r'/api/users/' + uuid_reg_str, UserHandler),
         (r'/api/users/' + uuid_reg_str + r'/like_stars', UserLikeStarsHandler),

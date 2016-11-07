@@ -1,22 +1,22 @@
 from __future__ import absolute_import
 
 from bootcamp.lib.exceptions import ResourceNotFoundError
-from bootcamp.services.user_service import UserService
+from bootcamp.services.tag_service import TagService
 
 from tornado.gen import coroutine
 
 from .base import BaseHandler
 
 
-class UserHandler(BaseHandler):
+class TagHandler(BaseHandler):
     @coroutine
     def get(self, id):
-        service = UserService()
+        service = TagService()
 
         self.set_header('Content-Type', 'application/json')
 
         try:
-            user = yield service.get(id)
-            self.write({'status': 'ok', 'user': user.to_dict()})
+            tag = yield service.get(id)
+            self.write({'status': 'ok', 'tag': tag.to_dict()})
         except ResourceNotFoundError:
             self.write({"status": "failed", "errorMessage": "Not found."})

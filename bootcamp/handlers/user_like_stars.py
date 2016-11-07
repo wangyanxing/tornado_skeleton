@@ -12,6 +12,9 @@ class UserLikeStarsHandler(BaseHandler):
     @coroutine
     def get(self, user_uuid):
         service = UserService()
+
+        self.set_header('Content-Type', 'application/json')
+
         try:
             stars = yield service.get_all_liked_stars(user_uuid)
             self.write({"status": "ok", "stars": [star.to_dict() for star in stars]})

@@ -25,3 +25,8 @@ class TagService(BaseService):
 
         logger.info(log_info)
         raise Return(tag)
+
+    @coroutine
+    def check_duplicates(self, entity):
+        tag = yield self.get_by_name(entity.name)
+        raise Return(tag is not None)
