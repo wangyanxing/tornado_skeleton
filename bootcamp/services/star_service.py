@@ -25,3 +25,8 @@ class StarService(BaseService):
 
         logger.info(log_info)
         raise Return(star)
+
+    @coroutine
+    def check_duplicates(self, entity):
+        user = yield self.get_by_name(entity.name)
+        raise Return(user is not None)

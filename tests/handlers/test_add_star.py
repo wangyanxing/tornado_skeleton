@@ -1,5 +1,6 @@
 import httplib
 
+from bootcamp.lib.exceptions import EntityAlreadyExistsError
 from bootcamp.services.star_service import StarService
 from doubles import allow_constructor, expect, patch_class
 import mock
@@ -24,4 +25,15 @@ def test_add_star(http_client, base_url):
     )
     response = yield http_client.fetch(base_url + '/add_star')
     assert response.body == 'Added {}'.format(fake_uuid)
+    assert response.code == httplib.OK
+
+
+@pytest.mark.gen_test
+def test_add_user_already_exists(http_client, base_url):
+    mock_service = gen_mock_service()
+    expect(mock_service).create_with_entity.and_raise(
+        EntityAlreadyExistsError,
+    )
+    response = yield http_client.fetch(base_url + '/add_star')
+    assert response.body == 'Star name fg exist.'
     assert response.code == httplib.OK

@@ -34,7 +34,7 @@ def test_get_user(http_client, base_url):
 
     result_object = json.loads(response.body)
     assert result_object['status'] == 'ok'
-    assert result_object['result'] == user.to_dict()
+    assert result_object['user'] == user.to_dict()
     assert response.code == httplib.OK
 
 
