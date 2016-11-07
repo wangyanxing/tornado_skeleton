@@ -27,6 +27,7 @@ def test_stars(http_client, base_url):
     response = yield http_client.fetch(base_url + '/api/stars')
     data = json.loads(response.body)
     assert data['stars'] == []
+    assert data['status'] == 'ok'
     assert response.code == httplib.OK
 
 

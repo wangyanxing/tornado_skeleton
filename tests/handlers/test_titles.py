@@ -1,4 +1,5 @@
 import httplib
+import json
 
 from bootcamp.services.title_service import TitleService
 from doubles import allow_constructor, expect, patch_class
@@ -20,5 +21,7 @@ def test_titles(http_client, base_url):
     expect(mock_service).get_all.and_return_future([])
 
     response = yield http_client.fetch(base_url + '/titles')
-    assert response.body == 'Number of titles: 0'
+    data = json.loads(response.body)
+    assert data['titles'] == []
+    assert data['status'] == 'ok'
     assert response.code == httplib.OK
