@@ -12,7 +12,7 @@ from .base import BaseHandler
 class AddStarHandler(BaseHandler):
     @coroutine
     def get(self):
-        star = Star(
+        star_entity = Star(
             name='fg',
             hiragana='fgdsb',
             english_id='fgdsb',
@@ -23,7 +23,7 @@ class AddStarHandler(BaseHandler):
         service = StarService()
 
         try:
-            star = yield service.create_with_entity(star)
+            star = yield service.create_with_entity(star_entity)
             self.write('Added {}'.format(star.uuid))
         except EntityAlreadyExistsError:
-            self.write('Star name {} exist.'.format(star.name))
+            self.write('Star name {} exist.'.format(star_entity.name))

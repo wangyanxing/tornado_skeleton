@@ -12,7 +12,7 @@ from .base import BaseHandler
 class AddUserHandler(BaseHandler):
     @coroutine
     def get(self):
-        user = User(
+        user_entity = User(
             user_name='fg',
             password='fgdsb',
             email='fgdsb@fgdsb'
@@ -20,7 +20,7 @@ class AddUserHandler(BaseHandler):
         service = UserService()
 
         try:
-            user = yield service.create_with_entity(user)
+            user = yield service.create_with_entity(user_entity)
             self.write('Added {}'.format(user.uuid))
         except EntityAlreadyExistsError:
-            self.write('User name {} exist.'.format(user.user_name))
+            self.write('User name {} exist.'.format(user_entity.user_name))

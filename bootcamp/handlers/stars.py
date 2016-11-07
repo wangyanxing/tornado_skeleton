@@ -1,6 +1,5 @@
 from __future__ import absolute_import
 
-# import json
 import urllib
 
 from bootcamp.handlers.base import BaseHandler
