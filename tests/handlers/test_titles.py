@@ -25,7 +25,7 @@ def test_titles(http_client, base_url):
     mock_service = gen_mock_service()
     expect(mock_service).get_all.and_return_future([])
 
-    response = yield http_client.fetch(base_url + '/titles')
+    response = yield http_client.fetch(base_url + '/api/titles')
     result_object = json.loads(response.body)
     assert result_object['titles'] == []
     assert result_object['status'] == 'ok'
