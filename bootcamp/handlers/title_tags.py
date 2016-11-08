@@ -19,4 +19,4 @@ class TitleTagsHandler(BaseHandler):
             tags = yield service.get_tags_by_title(id)
             self.write({"status": "ok", "tags": [tag.to_dict() for tag in tags]})
         except ResourceNotFoundError:
-            self.write({"status": "failed", "errorMessage": "Not found."})
+            self.write({"status": "failed", "errorMessage": "Title not found."})
