@@ -12,7 +12,11 @@ from ..handlers.stars import StarsHandler
 from ..handlers.tag import TagHandler
 from ..handlers.tags import TagsHandler
 from ..handlers.title import TitleHandler
+from ..handlers.title_add_tag import TitleAddTagHandler
+from ..handlers.title_tags import TitleTagsHandler
 from ..handlers.titles import TitlesHandler
+from ..handlers.titles_by_tag import TitlesByTagHandler
+from ..handlers.titles_recent import TitlesRecentHandler
 from ..handlers.user import UserHandler
 from ..handlers.user_like_star import UserLikeStarHandler
 from ..handlers.user_like_stars import UserLikeStarsHandler
@@ -39,6 +43,10 @@ def get_routes():
         (r'/api/tags/' + uuid_reg_str, TagHandler),
         (r'/api/titles', TitlesHandler),
         (r'/api/titles/' + uuid_reg_str, TitleHandler),
+        (r'/api/titles/' + uuid_reg_str + '/add_tag/' + uuid_reg_str, TitleAddTagHandler),
+        (r'/api/titles/' + uuid_reg_str + '/tags', TitleTagsHandler),
+        (r'/api/titles/recent', TitlesRecentHandler),
+        (r'/api/titles/tag/' + uuid_reg_str, TitlesByTagHandler),
         (r'/api/users', UsersHandler),
         (r'/api/users/' + uuid_reg_str, UserHandler),
         (r'/api/users/' + uuid_reg_str + r'/like_stars', UserLikeStarsHandler),

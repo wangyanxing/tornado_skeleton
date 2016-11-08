@@ -39,9 +39,9 @@ class Title(Model):
             'fileNames': self.file_names,
             'stars': self.stars,
             'description': self.description,
-            'videoSize': int(self.video_size),
-            'rate': float(self.rate),
-            'length': int(self.length),
+            'videoSize': None if not self.video_size else int(self.video_size),
+            'rate': None if not self.rate else float(self.rate),
+            'length': None if not self. length else int(self.length),
             'publishedDate': str(self.published_date),
             'tags': self.tags,
         }
