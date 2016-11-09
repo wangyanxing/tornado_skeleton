@@ -27,6 +27,7 @@ def test_tags(http_client, base_url):
     response = yield http_client.fetch(base_url + '/api/tags')
     data = json.loads(response.body)
     assert data['tags'] == []
+    assert data['status'] == 'ok'
     assert response.code == httplib.OK
 
 

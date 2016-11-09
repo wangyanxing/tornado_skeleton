@@ -167,3 +167,14 @@ class TestTitleService(BaseTestCase):
 
         self.assertEquals(len(titles), n)
         self.assertEquals(titles, fake_titles)
+
+    @mock.patch.object(BaseStore, 'get')
+    @gen_test
+    def test_title_add_tag_title_not_exists(self, mock_get):
+        fake_uuid = 'c736b780-11b6-4190-8529-4d89504b76a0'
+        mock_get.return_value = gen.maybe_future(None)
+
+        with self.assertRaises(ResourceNotFoundError):
+            yield TitleService().add_tag(fake_uuid, fake_uuid, True)
+
+        mock_get.assert_called_once_with(fake_uuid)

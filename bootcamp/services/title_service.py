@@ -37,6 +37,9 @@ class TitleService(BaseService):
 
         title = yield self.store.get(title_uuid)
 
+        if not title:
+            raise ResourceNotFoundError('Title not found')
+
         tag_list = list(title.tags)
         if add is True:
             if tag_uuid not in tag_list:
