@@ -10,7 +10,4 @@ class IndexHandler(BaseHandler):
     @coroutine
     def get(self):
         """Say hello!"""
-        print 'sleeping'
-        time.sleep(5)
-        print 'done'
         self.write('Hello bootcamper!')
