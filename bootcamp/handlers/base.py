@@ -29,8 +29,8 @@ class BaseHandler(RequestHandler):
         pass
 
     def set_cookie(self, *args, **kwargs):
-        kwargs.setdefault('secure', True)  # HTTPS only
-        kwargs.setdefault('httponly', True)  # Not accessible to javascript
+        # kwargs.setdefault('secure', True)  # HTTPS only
+        # kwargs.setdefault('httponly', True)  # Not accessible to javascript
         super(BaseHandler, self).set_cookie(*args, **kwargs)
 
     @property
@@ -80,6 +80,7 @@ class BaseHandler(RequestHandler):
     def set_user_cookie(self, user_cookie_dict):
         expires_days = None if user_cookie_dict.get(
             COOKIE_KEY_IS_SESSION, False) else USER_COOKIE_EXPIRES_DAYS
+        logger.info('Setting user cookie')
         self.set_secure_cookie(
             USER_COOKIE_NAME,
             json.dumps(user_cookie_dict),
