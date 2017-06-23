@@ -13,6 +13,7 @@ COPY requirements.txt \
 
 COPY config ${APPDIR}/config/
 COPY bootcamp ${APPDIR}/bootcamp/
+COPY scripts ${APPDIR}/scripts/
 
 RUN virtualenv env
 RUN . env/bin/activate
